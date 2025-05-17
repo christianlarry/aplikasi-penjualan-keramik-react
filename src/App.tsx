@@ -1,7 +1,7 @@
 // IMPORT STYLES
 import "./styles/variabel.css"
 import "./styles/global.css"
-import AppRouter from "./AppRouter"
+import AppRouter from "./routes/AppRouter"
 
 function App() {
   return  <AppRouter/>
