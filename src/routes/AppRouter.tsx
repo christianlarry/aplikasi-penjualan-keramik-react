@@ -4,15 +4,24 @@ import {createBrowserRouter, RouterProvider} from "react-router"
 import HomePage from "../components/pages/home/HomePage"
 import CatalogPage from "../components/pages/catalog/CatalogPage"
 
+// Import layout
+import MainLayout from "../components/layout/MainLayout"
+
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      Component: HomePage
-    },
-    {
-      path: "/product-catalog",
-      Component: CatalogPage
+      Component: MainLayout,
+      children: [
+        {
+          index: true,
+          Component: HomePage
+        },
+        {
+          path: "/product-catalog",
+          Component: CatalogPage
+        }
+      ]
     }
   ]
 )
