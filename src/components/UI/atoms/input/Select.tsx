@@ -128,10 +128,10 @@ export function Select({
       {/* Select trigger */}
       <div
         className={cn(
-          "flex min-h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background",
-          "focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+          "flex min-h-10 w-full items-center justify-between rounded-md border border-input border-gray-300 bg-background px-3 py-2 text-sm ring-offset-background",
+          "focus-within:outline-none focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2",
           disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
-          isOpen && "ring-2 ring-ring ring-offset-2",
+          isOpen && "ring-2 ring-gray-500 ring-offset-2",
         )}
         onClick={toggleDropdown}
         tabIndex={0}
@@ -157,12 +157,12 @@ export function Select({
                 ))}
               </div>
             ) : (
-              <span className="text-muted-foreground">{placeholder}</span>
+              <span className="text-muted-foreground text-gray-500">{placeholder}</span>
             )
           ) : !Array.isArray(value) && value ? (
             <span>{value.label}</span>
           ) : (
-            <span className="text-muted-foreground">{placeholder}</span>
+            <span className="text-muted-foreground text-gray-500">{placeholder}</span>
           )}
         </div>
         <div className="flex items-center gap-1">
@@ -178,9 +178,9 @@ export function Select({
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80">
+        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white p-1 shadow-md animate-in fade-in-80">
           {searchable && (
-            <div className="sticky top-0 z-10 mb-1 flex items-center border-b bg-popover p-2">
+            <div className="sticky top-0 z-10 mb-1 flex items-center border-b border-gray-300 bg-white p-2">
               <LuSearch className="mr-2 h-4 w-4 shrink-0 opacity-50" />
               <input
                 ref={searchInputRef}

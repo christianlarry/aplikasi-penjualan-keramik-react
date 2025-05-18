@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
+import InputGroup from "../molecules/input/InputGroup"
 
 // Filter options
 const designOptions: SelectOption[] = [
-  { value: "all", label: "All Designs" },
   { value: "modern", label: "Modern" },
   { value: "classic", label: "Classic" },
   { value: "geometric", label: "Geometric" },
@@ -12,7 +12,6 @@ const designOptions: SelectOption[] = [
 ]
 
 const textureOptions: SelectOption[] = [
-  { value: "all", label: "All Textures" },
   { value: "smooth", label: "Smooth" },
   { value: "matte", label: "Matte" },
   { value: "glossy", label: "Glossy" },
@@ -21,7 +20,6 @@ const textureOptions: SelectOption[] = [
 ]
 
 const finishingOptions: SelectOption[] = [
-  { value: "all", label: "All Finishings" },
   { value: "polished", label: "Polished" },
   { value: "honed", label: "Honed" },
   { value: "brushed", label: "Brushed" },
@@ -30,7 +28,6 @@ const finishingOptions: SelectOption[] = [
 ]
 
 const colorOptions: SelectOption[] = [
-  { value: "all", label: "All Colors" },
   { value: "white", label: "White" },
   { value: "beige", label: "Beige" },
   { value: "gray", label: "Gray" },
@@ -40,7 +37,6 @@ const colorOptions: SelectOption[] = [
 ]
 
 const sizeOptions: SelectOption[] = [
-  { value: "all", label: "All Sizes" },
   { value: "30x30", label: "30 x 30 cm" },
   { value: "60x60", label: "60 x 60 cm" },
   { value: "60x120", label: "60 x 120 cm" },
@@ -50,45 +46,55 @@ const sizeOptions: SelectOption[] = [
 
 const ProductCatalog = ()=>{
   // Filter states
-  const [designFilter, setDesignFilter] = useState<SelectOption | null>({ value: "all", label: "All Designs" })
-  const [textureFilter, setTextureFilter] = useState<SelectOption | null>({ value: "all", label: "All Textures" })
-  const [finishingFilter, setFinishingFilter] = useState<SelectOption | null>({ value: "all", label: "All Finishings" })
-  const [colorFilter, setColorFilter] = useState<SelectOption | null>({ value: "all", label: "All Colors" })
-  const [sizeFilter, setSizeFilter] = useState<SelectOption | null>({ value: "all", label: "All Sizes" })
+  const [designFilter, setDesignFilter] = useState<SelectOption | null>(null)
+  const [textureFilter, setTextureFilter] = useState<SelectOption | null>(null)
+  const [finishingFilter, setFinishingFilter] = useState<SelectOption | null>(null)
+  const [colorFilter, setColorFilter] = useState<SelectOption | null>(null)
+  const [sizeFilter, setSizeFilter] = useState<SelectOption | null>(null)
   
   return (
     <div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5">
-        <Select
-          options={designOptions}
-          value={designFilter}
-          onChange={(value) => setDesignFilter(value as SelectOption | null)}
-          placeholder="Design"
-        />
-        <Select
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <InputGroup label="Design">
+          <Select
+            options={designOptions}
+            value={designFilter}
+            onChange={(value) => setDesignFilter(value as SelectOption | null)}
+            placeholder="Select Design"
+          />
+        </InputGroup>
+        <InputGroup label="Texture">
+          <Select
           options={textureOptions}
           value={textureFilter}
           onChange={(value) => setTextureFilter(value as SelectOption | null)}
-          placeholder="Texture"
-        />
-        <Select
+          placeholder="Select Texture"
+          />
+        </InputGroup>
+        <InputGroup label="Finishing">
+          <Select
           options={finishingOptions}
           value={finishingFilter}
           onChange={(value) => setFinishingFilter(value as SelectOption | null)}
-          placeholder="Finishing"
+          placeholder="Select Finishing"
         />
-        <Select
-          options={colorOptions}
-          value={colorFilter}
-          onChange={(value) => setColorFilter(value as SelectOption | null)}
-          placeholder="Color"
-        />
-        <Select
+        </InputGroup>
+        <InputGroup label="Color">
+          <Select
+            options={colorOptions}
+            value={colorFilter}
+            onChange={(value) => setColorFilter(value as SelectOption | null)}
+            placeholder="Select Color"
+          />
+        </InputGroup>
+        <InputGroup label="Size">
+          <Select
           options={sizeOptions}
           value={sizeFilter}
           onChange={(value) => setSizeFilter(value as SelectOption | null)}
-          placeholder="Size"
+          placeholder="Select Size"
         />
+        </InputGroup>
       </div>
     </div>
   )
