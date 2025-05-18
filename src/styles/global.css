@@ -5,10 +5,10 @@
   --font-geist: "Geist",sans-serif;
 }
 
-*{
-  box-sizing: border-box;
-}
-
 body{
   font-family: var(--font-geist);
+}
+
+p{
+  color: var(--color-gray-500);
 }
