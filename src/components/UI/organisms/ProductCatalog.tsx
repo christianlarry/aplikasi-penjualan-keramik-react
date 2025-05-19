@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input/InputGroup"
-import ProductCard from "../atoms/card/ProductCard"
+import ProductCard from "../molecules/card/ProductCard"
 
 // Filter options
 const designOptions: SelectOption[] = [
@@ -103,7 +103,64 @@ const ProductCatalog = ()=>{
         <p className="text-sm">Showing 12 of 12 products</p>
       </div>
 
-      <div className="grid gap-4 grid-cols-4">
+      <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        <ProductCard
+          product={{
+            "_id": "67de49c5bda24e33b1a9ed0b",
+            "name": "Wooden Texture Ceramic",
+            "type": "Wall",
+            "design": "Wood",
+            "size": {
+                "width": 30,
+                "height": 60
+            },
+            "color": "Brown",
+            "finishing": "Glossy",
+            "texture": "Textured",
+            "brand": "Granito",
+            "price": 60000,
+            "createdAt": "2025-05-08T08:51:21.403Z",
+            "updatedAt": "2025-05-08T08:51:21.403Z"
+          }}
+        />
+        <ProductCard
+          product={{
+            "_id": "67de49c5bda24e33b1a9ed0b",
+            "name": "Wooden Texture Ceramic",
+            "type": "Wall",
+            "design": "Wood",
+            "size": {
+                "width": 30,
+                "height": 60
+            },
+            "color": "Brown",
+            "finishing": "Glossy",
+            "texture": "Textured",
+            "brand": "Granito",
+            "price": 60000,
+            "createdAt": "2025-05-08T08:51:21.403Z",
+            "updatedAt": "2025-05-08T08:51:21.403Z"
+          }}
+        />
+        <ProductCard
+          product={{
+            "_id": "67de49c5bda24e33b1a9ed0b",
+            "name": "Wooden Texture Ceramic",
+            "type": "Wall",
+            "design": "Wood",
+            "size": {
+                "width": 30,
+                "height": 60
+            },
+            "color": "Brown",
+            "finishing": "Glossy",
+            "texture": "Textured",
+            "brand": "Granito",
+            "price": 60000,
+            "createdAt": "2025-05-08T08:51:21.403Z",
+            "updatedAt": "2025-05-08T08:51:21.403Z"
+          }}
+        />
         <ProductCard
           product={{
             "_id": "67de49c5bda24e33b1a9ed0b",

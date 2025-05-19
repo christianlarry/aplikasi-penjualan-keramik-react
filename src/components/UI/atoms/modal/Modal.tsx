@@ -10,9 +10,10 @@ interface ModalProps {
   onClose: () => void
   children: React.ReactNode
   className?: string
+  size?:"sm"|"md"|"lg"
 }
 
-export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
+export const Modal = ({ isOpen, onClose, children, className,size="md" }: ModalProps) => {
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -41,9 +42,9 @@ export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
       <div
         className={cn(
-          "relative z-50 w-full max-w-md rounded-lg bg-white p-0 shadow-lg animate-in fade-in zoom-in-95 duration-200",
-          "dark:bg-gray-900",
+          "relative z-50 w-full rounded-lg bg-white p-0 shadow-lg animate-in fade-in zoom-in-95 duration-200 mx-5 max-h-10/12 overflow-auto",
           className,
+          size==="sm"?"max-w-md":size==="md"?"max-w-xl":size==="lg"&&"max-w-3xl"
         )}
         role="dialog"
         aria-modal="true"
@@ -66,7 +67,7 @@ export const ModalHeader = ({ children, onClose, className, showCloseButton = tr
   return (
     <div
       className={cn(
-        "flex items-center justify-between border-b border-gray-200 px-6 py-4 dark:border-gray-800",
+        "flex items-center justify-between border-b border-gray-200 px-6 py-4 ",
         className,
       )}
     >
@@ -74,7 +75,7 @@ export const ModalHeader = ({ children, onClose, className, showCloseButton = tr
       {showCloseButton && onClose && (
         <button
           onClick={onClose}
-          className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:focus:ring-gray-700"
+          className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 cursor-pointer"
           aria-label="Close"
         >
           <LuX className="h-4 w-4" />
@@ -90,7 +91,7 @@ interface ModalBodyProps {
 }
 
 export function ModalBody({ children, className }: ModalBodyProps) {
-  return <div className={cn("px-6 py-4", className)}>{children}</div>
+  return <div className={cn("px-6 py-4 overflow-auto max-h-8/12", className)}>{children}</div>
 }
 
 interface ModalFooterProps {
@@ -102,7 +103,7 @@ export const ModalFooter = ({ children, className }: ModalFooterProps) => {
   return (
     <div
       className={cn(
-        "flex items-center justify-end gap-2 border-t border-gray-200 px-6 py-4 dark:border-gray-800",
+        "flex items-center justify-end gap-2 border-t border-gray-200 px-6 py-4",
         className,
       )}
     >

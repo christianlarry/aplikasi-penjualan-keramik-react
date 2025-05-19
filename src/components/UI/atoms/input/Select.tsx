@@ -168,7 +168,7 @@ export function Select({
         <div className="flex items-center gap-1">
           {((multiple && Array.isArray(value) && value.length > 0) ||
             (!multiple && !Array.isArray(value) && value)) && (
-            <button onClick={clearAll} className="rounded-full p-1 hover:bg-muted" aria-label="Clear selection">
+            <button onClick={clearAll} className="rounded-full hover:bg-muted" aria-label="Clear selection">
               <LuX className="h-4 w-4" />
             </button>
           )}
