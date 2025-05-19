@@ -1,3 +1,5 @@
+import type { Pagination } from "./paginationInterfaces"
+
 export interface Product{
   _id?: string,
   name: string,
@@ -15,4 +17,9 @@ export interface Product{
   image?: string | null,
   createdAt: string,
   updatedAt: string
+}
+
+export interface GetProductsResponse{
+  data:Product[],
+  page:Pagination
 }

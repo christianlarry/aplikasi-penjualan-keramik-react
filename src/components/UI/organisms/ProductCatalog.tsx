@@ -3,6 +3,8 @@ import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
 import Pagination from "../molecules/pagination/Pagination"
+import { getProducts } from "../../../api/api"
+import { httpQuery } from "../../../utils/httpQuery"
 
 // Filter options
 const designOptions: SelectOption[] = [
@@ -47,6 +49,22 @@ const sizeOptions: SelectOption[] = [
 ]
 
 const ProductCatalog = ()=>{
+
+  const [paginationPage,setPaginationPage] = useState<number>(1)
+
+  const getProductsResult = getProducts(
+    httpQuery(
+      {
+        key:"pagination_size",
+        value: 12
+      },
+      {
+        key:"pagination_page",
+        value: paginationPage
+      }
+    )
+  )
+
   // Filter states
   const [designFilter, setDesignFilter] = useState<SelectOption | null>(null)
   const [typeFilter, setTypeFilter] = useState<SelectOption | null>(null)
@@ -114,91 +132,22 @@ const ProductCatalog = ()=>{
       </div>
 
       <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-        <ProductCard
-          product={{
-            "_id": "67de49c5bda24e33b1a9ed0b",
-            "name": "Wooden Texture Ceramic",
-            "type": "Wall",
-            "design": "Wood",
-            "size": {
-                "width": 30,
-                "height": 60
-            },
-            "color": "Brown",
-            "finishing": "Glossy",
-            "texture": "Textured",
-            "brand": "Granito",
-            "price": 60000,
-            "createdAt": "2025-05-08T08:51:21.403Z",
-            "updatedAt": "2025-05-08T08:51:21.403Z"
-          }}
-        />
-        <ProductCard
-          product={{
-            "_id": "67de49c5bda24e33b1a9ed0b",
-            "name": "Wooden Texture Ceramic",
-            "type": "Wall",
-            "design": "Wood",
-            "size": {
-                "width": 30,
-                "height": 60
-            },
-            "color": "Brown",
-            "finishing": "Glossy",
-            "texture": "Textured",
-            "brand": "Granito",
-            "price": 60000,
-            "createdAt": "2025-05-08T08:51:21.403Z",
-            "updatedAt": "2025-05-08T08:51:21.403Z"
-          }}
-        />
-        <ProductCard
-          product={{
-            "_id": "67de49c5bda24e33b1a9ed0b",
-            "name": "Wooden Texture Ceramic",
-            "type": "Wall",
-            "design": "Wood",
-            "size": {
-                "width": 30,
-                "height": 60
-            },
-            "color": "Brown",
-            "finishing": "Glossy",
-            "texture": "Textured",
-            "brand": "Granito",
-            "price": 60000,
-            "createdAt": "2025-05-08T08:51:21.403Z",
-            "updatedAt": "2025-05-08T08:51:21.403Z"
-          }}
-        />
-        <ProductCard
-          product={{
-            "_id": "67de49c5bda24e33b1a9ed0b",
-            "name": "Wooden Texture Ceramic",
-            "type": "Wall",
-            "design": "Wood",
-            "size": {
-                "width": 30,
-                "height": 60
-            },
-            "color": "Brown",
-            "finishing": "Glossy",
-            "texture": "Textured",
-            "brand": "Granito",
-            "price": 60000,
-            "createdAt": "2025-05-08T08:51:21.403Z",
-            "updatedAt": "2025-05-08T08:51:21.403Z"
-          }}
-        />
+        {getProductsResult.data && getProductsResult.data.data.map((product)=>(
+          <ProductCard
+            key={product._id}
+            product={product}
+          />
+        ))}
       </div>
 
-      <div>
+      {getProductsResult.data &&
         <Pagination
-          currentPage={1}
-          totalPages={15}
-          onPageChange={(page)=>console.log(page)}
+          currentPage={getProductsResult.data.page.current}
+          totalPages={getProductsResult.data.page.totalPages}
+          onPageChange={(page)=>setPaginationPage(page)}
         />
-      </div>
+      }
+      
     </div>
   )
 }

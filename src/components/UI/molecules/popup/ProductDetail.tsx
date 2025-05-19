@@ -4,6 +4,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from "../../atoms/modal/Mo
 import ProductPlaceholderImg from "../../../../assets/images/placeholders/product-placeholder.png"
 import { formatRupiah } from "../../../../utils/currencyFormat"
 import Button from "../../atoms/button/Button"
+import { getProductImgUrl } from "../../../../utils/getProductImgUrl"
 
 interface Props{
   product:Product
@@ -29,7 +30,7 @@ const ProductDetail = ({
       <ModalBody>
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="relative aspect-square overflow-hidden rounded-md">
-            <img src={product.image || ProductPlaceholderImg} alt={product.name} className="object-cover w-full object-center" />
+            <img src={product.image ? getProductImgUrl(product.image) : ProductPlaceholderImg} alt={product.name} className="object-cover w-full object-center" />
           </div>
           <div className="space-y-4">
             <div>

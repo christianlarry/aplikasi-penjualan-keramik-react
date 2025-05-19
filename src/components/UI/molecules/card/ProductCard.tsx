@@ -5,6 +5,7 @@ import ProductPlaceholderImg from "../../../../assets/images/placeholders/produc
 import { formatRupiah } from "../../../../utils/currencyFormat"
 import ProductDetail from "../popup/ProductDetail"
 import { useState } from "react"
+import { getProductImgUrl } from "../../../../utils/getProductImgUrl"
 
 interface Props{
   product:Product
@@ -20,7 +21,7 @@ const ProductCard = ({
     <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-300 bg-background transition-all hover:shadow-md">
       <div className="relative aspect-square overflow-hidden">
         <img
-          src={product.image || ProductPlaceholderImg}
+          src={product.image ? getProductImgUrl(product.image) : ProductPlaceholderImg}
           alt={product.name}
           className="object-cover object-center transition-transform group-hover:scale-105 w-full"
         />
