@@ -27,21 +27,21 @@ const ProductDetail = ({
     >
       <ModalHeader onClose={onClose}>{product.name}</ModalHeader>
       <ModalBody>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <div className="relative aspect-square overflow-hidden rounded-md">
-            <img src={product.image || ProductPlaceholderImg} alt={product.name} className="object-cover" />
+            <img src={product.image || ProductPlaceholderImg} alt={product.name} className="object-cover w-full object-center" />
           </div>
           <div className="space-y-4">
             <div>
-              <h4 className="text-sm font-medium text-muted-foreground">Size(cm)</h4>
-              <p>{product.size.width}x{product.size.height}</p>
+              <h4 className="text-sm font-medium text-gray-500">Size</h4>
+              <p>{product.size.width} x {product.size.height} cm</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-muted-foreground">Price</h4>
+              <h4 className="text-sm font-medium text-gray-500">Price</h4>
               <p className="text-xl font-medium">Rp{formatRupiah(product.price)}</p>
-            </div>
+            </div>                            
             <div>
-              <h4 className="text-sm font-medium text-muted-foreground">Specifications</h4>
+              <h4 className="text-sm font-medium text-gray-500">Specifications</h4>
               <ul className="mt-2 space-y-1 text-sm">
                 <li>Design: {product.design}</li>
                 <li>Texture: {product.texture}</li>
@@ -51,12 +51,12 @@ const ProductDetail = ({
               </ul>
             </div>
             {/* <div>
-              <h4 className="text-sm font-medium text-muted-foreground">Description</h4>
+              <h4 className="text-sm font-medium text-gray-500">Description</h4>
               <p className="text-sm">{product.description}</p>
             </div> */}
             {/* {product.recommended && product.recommended.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium text-muted-foreground">Recommended For</h4>
+                <h4 className="text-sm font-medium text-gray-500">Recommended For</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                   {product.recommended.map((area, index) => (
                     <li key={index}>{area}</li>

@@ -16,7 +16,7 @@ const InputGroup = ({
     <div className="flex flex-col">
       {label &&
         <div>
-          <p className="text-sm text-black!">{label}</p>
+          <p className="text-sm">{label}</p>
         </div>
       }
       <div>

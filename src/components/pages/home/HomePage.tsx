@@ -6,7 +6,7 @@ const HomePage = () => {
       <section>
         <div className="flex flex-col items-center gap-3">
           <h2 className="text-4xl font-semibold">Ceramic Tile Collection</h2>
-          <p>Discover our premium selection of ceramic and porcelain tiles</p>
+          <p className="text-gray-500">Discover our premium selection of ceramic and porcelain tiles</p>
         </div>
       </section>
 

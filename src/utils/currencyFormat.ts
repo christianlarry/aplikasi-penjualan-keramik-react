@@ -3,5 +3,5 @@ export function formatRupiah(value: number): string{
     currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
-  });
+  }) + ",00";
 }

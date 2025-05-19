@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
+import Button from "../atoms/button/Button"
 
 // Filter options
 const designOptions: SelectOption[] = [
@@ -48,6 +49,7 @@ const sizeOptions: SelectOption[] = [
 const ProductCatalog = ()=>{
   // Filter states
   const [designFilter, setDesignFilter] = useState<SelectOption | null>(null)
+  const [typeFilter, setTypeFilter] = useState<SelectOption | null>(null)
   const [textureFilter, setTextureFilter] = useState<SelectOption | null>(null)
   const [finishingFilter, setFinishingFilter] = useState<SelectOption | null>(null)
   const [colorFilter, setColorFilter] = useState<SelectOption | null>(null)
@@ -56,51 +58,59 @@ const ProductCatalog = ()=>{
   return (
     <div className="flex flex-col gap-4">
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-        <InputGroup label="Design">
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <InputGroup label="Lantai/Dinding">
+          <Select
+            options={designOptions}
+            value={typeFilter}
+            onChange={(value) => setTypeFilter(value as SelectOption | null)}
+            placeholder="Pilih Lantai/Dinding"
+          />
+        </InputGroup>
+        <InputGroup label="Desain">
           <Select
             options={designOptions}
             value={designFilter}
             onChange={(value) => setDesignFilter(value as SelectOption | null)}
-            placeholder="Select Design"
+            placeholder="Pilih Desain"
           />
         </InputGroup>
-        <InputGroup label="Texture">
+        <InputGroup label="Tekstur">
           <Select
           options={textureOptions}
           value={textureFilter}
           onChange={(value) => setTextureFilter(value as SelectOption | null)}
-          placeholder="Select Texture"
+          placeholder="Pilih Tekstur"
           />
         </InputGroup>
-        <InputGroup label="Finishing">
+        <InputGroup label="Sentuhan Akhir">
           <Select
           options={finishingOptions}
           value={finishingFilter}
           onChange={(value) => setFinishingFilter(value as SelectOption | null)}
-          placeholder="Select Finishing"
+          placeholder="Pilih Sentuhan Akhir"
         />
         </InputGroup>
-        <InputGroup label="Color">
+        <InputGroup label="Warna">
           <Select
             options={colorOptions}
             value={colorFilter}
             onChange={(value) => setColorFilter(value as SelectOption | null)}
-            placeholder="Select Color"
+            placeholder="Pilih Warna"
           />
         </InputGroup>
-        <InputGroup label="Size">
+        <InputGroup label="Ukuran">
           <Select
           options={sizeOptions}
           value={sizeFilter}
           onChange={(value) => setSizeFilter(value as SelectOption | null)}
-          placeholder="Select Size"
+          placeholder="Pilih Ukuran"
         />
         </InputGroup>
       </div>
 
       <div>
-        <p className="text-sm">Showing 12 of 12 products</p>
+        <p className="text-sm text-gray-500">Showing 12 of 12 products</p>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
@@ -180,6 +190,12 @@ const ProductCatalog = ()=>{
             "updatedAt": "2025-05-08T08:51:21.403Z"
           }}
         />
+      </div>
+
+      <div>
+        <div>
+          <Button size="sm" variant="pagination" active>1</Button>
+        </div>
       </div>
     </div>
   )

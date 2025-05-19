@@ -157,12 +157,12 @@ export function Select({
                 ))}
               </div>
             ) : (
-              <span className="text-muted-foreground text-gray-500">{placeholder}</span>
+              <span className="text-gray-500">{placeholder}</span>
             )
           ) : !Array.isArray(value) && value ? (
             <span>{value.label}</span>
           ) : (
-            <span className="text-muted-foreground text-gray-500">{placeholder}</span>
+            <span className="text-gray-500">{placeholder}</span>
           )}
         </div>
         <div className="flex items-center gap-1">

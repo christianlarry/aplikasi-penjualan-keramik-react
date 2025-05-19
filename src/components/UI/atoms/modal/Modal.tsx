@@ -42,7 +42,7 @@ export const Modal = ({ isOpen, onClose, children, className,size="md" }: ModalP
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
       <div
         className={cn(
-          "relative z-50 w-full rounded-lg bg-white p-0 shadow-lg animate-in fade-in zoom-in-95 duration-200 mx-5 max-h-10/12 overflow-auto",
+          "relative z-50 w-full rounded-lg bg-white p-0 shadow-lg animate-in fade-in zoom-in-95 duration-200 mx-5 max-h-10/12 flex flex-col",
           className,
           size==="sm"?"max-w-md":size==="md"?"max-w-xl":size==="lg"&&"max-w-3xl"
         )}
@@ -91,7 +91,7 @@ interface ModalBodyProps {
 }
 
 export function ModalBody({ children, className }: ModalBodyProps) {
-  return <div className={cn("px-6 py-4 overflow-auto max-h-8/12", className)}>{children}</div>
+  return <div className={cn("px-6 py-4 overflow-auto", className)}>{children}</div>
 }
 
 interface ModalFooterProps {
