@@ -12,6 +12,7 @@ const Button = ({
   size = "md",
   variant = "contained",
   active=false,
+  disabled,
   className,
   ...props
 }:Props)=>{
@@ -20,6 +21,7 @@ const Button = ({
       className={cn(
         className,  
         "cursor-pointer rounded-md text-sm font-medium transition-colors outline-0 bg-gray-200",
+        disabled && "cursor-none! pointer-events-none!",
         size==="sm" ? 
           "py-2 px-3" : 
         size==="md" ? 
@@ -33,7 +35,7 @@ const Button = ({
         variant === "text" ? 
           "bg-transparent hover:underline p-2!" : 
         variant === "pagination" && 
-          "p-0! w-8 h-8 font-semibold! bg-transparent border border-gray-300 hover:bg-gray-100",
+          "p-0! w-8 h-8 font-semibold! bg-transparent border border-gray-300 hover:bg-gray-100 flex items-center justify-center",
         variant === "pagination" && active===true && 
           "text-white! bg-black! border-0!"
       )}

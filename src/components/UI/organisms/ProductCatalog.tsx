@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
-import Button from "../atoms/button/Button"
+import Pagination from "../molecules/pagination/Pagination"
 
 // Filter options
 const designOptions: SelectOption[] = [
@@ -193,9 +193,11 @@ const ProductCatalog = ()=>{
       </div>
 
       <div>
-        <div>
-          <Button size="sm" variant="pagination" active>1</Button>
-        </div>
+        <Pagination
+          currentPage={1}
+          totalPages={15}
+          onPageChange={(page)=>console.log(page)}
+        />
       </div>
     </div>
   )
