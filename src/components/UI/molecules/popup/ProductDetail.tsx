@@ -42,13 +42,16 @@ const ProductDetail = ({
               <p className="text-xl font-medium">Rp{formatRupiah(product.price)}</p>
             </div>                            
             <div>
+              <h4 className="text-sm font-medium text-gray-500">Brands</h4>
+              <p className="text-md font-medium">{product.brand}</p>
+            </div>                            
+            <div>
               <h4 className="text-sm font-medium text-gray-500">Specifications</h4>
               <ul className="mt-2 space-y-1 text-sm">
                 <li>Design: {product.design}</li>
                 <li>Texture: {product.texture}</li>
                 <li>Finishing: {product.finishing}</li>
                 <li>Color: {product.color}</li>
-                <li>Brand: {product.brand}</li>
               </ul>
             </div>
             {/* <div>

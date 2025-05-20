@@ -19,7 +19,17 @@ export interface Product{
   updatedAt: string
 }
 
+export interface ProductFilterOptions{
+  _id:string,
+  type:string,
+  options:{label:string,value:string}[]
+}
+
 export interface GetProductsResponse{
   data:Product[],
   page:Pagination
+}
+
+export interface GetProductFilterOptionsResponse{
+  data: ProductFilterOptions[]
 }

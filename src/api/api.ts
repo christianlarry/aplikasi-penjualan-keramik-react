@@ -2,7 +2,7 @@ import type { AxiosResponse } from "axios"
 import axios from "axios"
 import type { SWRConfiguration } from "swr"
 import useSWR from "swr"
-import type { GetProductsResponse } from "../interface/productInterfaces"
+import type { GetProductFilterOptionsResponse, GetProductsResponse } from "../interface/productInterfaces"
 
 // INIT VARIABEL
 const api_baseUrl = import.meta.env.VITE_API_BASE_URL || ""
@@ -32,6 +32,12 @@ export const fetcher = async <T>(url:string,query:string=''):Promise<T>=>{
 // Get Product
 export const getProducts = (query?:string,config?:SWRConfiguration)=>useSWR<GetProductsResponse>(
   `product${query?"?"+query:""}`,
+  fetcher,
+  config
+)
+
+export const getProductFilterOptions = (config?:SWRConfiguration)=>useSWR<GetProductFilterOptionsResponse>(
+  'product/filter-options',
   fetcher,
   config
 )

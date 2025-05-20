@@ -3,55 +3,23 @@ import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
 import Pagination from "../molecules/pagination/Pagination"
-import { getProducts } from "../../../api/api"
+import { getProductFilterOptions, getProducts } from "../../../api/api"
 import { httpQuery } from "../../../utils/httpQuery"
-
-// Filter options
-const designOptions: SelectOption[] = [
-  { value: "modern", label: "Modern" },
-  { value: "classic", label: "Classic" },
-  { value: "geometric", label: "Geometric" },
-  { value: "floral", label: "Floral" },
-  { value: "minimalist", label: "Minimalist" },
-]
-
-const textureOptions: SelectOption[] = [
-  { value: "smooth", label: "Smooth" },
-  { value: "matte", label: "Matte" },
-  { value: "glossy", label: "Glossy" },
-  { value: "textured", label: "Textured" },
-  { value: "rustic", label: "Rustic" },
-]
-
-const finishingOptions: SelectOption[] = [
-  { value: "polished", label: "Polished" },
-  { value: "honed", label: "Honed" },
-  { value: "brushed", label: "Brushed" },
-  { value: "lappato", label: "Lappato" },
-  { value: "natural", label: "Natural" },
-]
-
-const colorOptions: SelectOption[] = [
-  { value: "white", label: "White" },
-  { value: "beige", label: "Beige" },
-  { value: "gray", label: "Gray" },
-  { value: "black", label: "Black" },
-  { value: "brown", label: "Brown" },
-  { value: "blue", label: "Blue" },
-]
-
-const sizeOptions: SelectOption[] = [
-  { value: "30x30", label: "30 x 30 cm" },
-  { value: "60x60", label: "60 x 60 cm" },
-  { value: "60x120", label: "60 x 120 cm" },
-  { value: "80x80", label: "80 x 80 cm" },
-  { value: "100x100", label: "100 x 100 cm" },
-]
 
 const ProductCatalog = ()=>{
 
+  // Pagination states
   const [paginationPage,setPaginationPage] = useState<number>(1)
 
+  // Filter states
+  const [designFilter, setDesignFilter] = useState<SelectOption | null>(null)
+  const [typeFilter, setTypeFilter] = useState<SelectOption | null>(null)
+  const [textureFilter, setTextureFilter] = useState<SelectOption | null>(null)
+  const [finishingFilter, setFinishingFilter] = useState<SelectOption | null>(null)
+  const [colorFilter, setColorFilter] = useState<SelectOption | null>(null)
+  const [sizeFilter, setSizeFilter] = useState<SelectOption | null>(null)
+
+  // API call
   const getProductsResult = getProducts(
     httpQuery(
       {
@@ -64,71 +32,68 @@ const ProductCatalog = ()=>{
       }
     )
   )
-
-  // Filter states
-  const [designFilter, setDesignFilter] = useState<SelectOption | null>(null)
-  const [typeFilter, setTypeFilter] = useState<SelectOption | null>(null)
-  const [textureFilter, setTextureFilter] = useState<SelectOption | null>(null)
-  const [finishingFilter, setFinishingFilter] = useState<SelectOption | null>(null)
-  const [colorFilter, setColorFilter] = useState<SelectOption | null>(null)
-  const [sizeFilter, setSizeFilter] = useState<SelectOption | null>(null)
+  const getProductFilterOptionsResult = getProductFilterOptions()
   
   return (
     <div className="flex flex-col gap-4">
 
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-        <InputGroup label="Lantai/Dinding">
-          <Select
-            options={designOptions}
-            value={typeFilter}
-            onChange={(value) => setTypeFilter(value as SelectOption | null)}
-            placeholder="Pilih Lantai/Dinding"
+      {getProductFilterOptionsResult.data &&
+        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <InputGroup label="Lantai/Dinding">
+            <Select
+              options={getProductFilterOptionsResult.data.data.filter(val=>val.type==="type")[0].options || []}
+              value={typeFilter}
+              onChange={(value) => setTypeFilter(value as SelectOption | null)}
+              placeholder="Pilih Lantai/Dinding"
+            />
+          </InputGroup>
+          <InputGroup label="Desain">
+            <Select
+              options={getProductFilterOptionsResult.data.data.filter(val=>val.type==="design")[0].options || []}
+              value={designFilter}
+              onChange={(value) => setDesignFilter(value as SelectOption | null)}
+              placeholder="Pilih Desain"
+            />
+          </InputGroup>
+          <InputGroup label="Tekstur">
+            <Select
+            options={getProductFilterOptionsResult.data.data.filter(val=>val.type==="texture")[0].options || []}
+            value={textureFilter}
+            onChange={(value) => setTextureFilter(value as SelectOption | null)}
+            placeholder="Pilih Tekstur"
+            />
+          </InputGroup>
+          <InputGroup label="Sentuhan Akhir">
+            <Select
+            options={getProductFilterOptionsResult.data.data.filter(val=>val.type==="finishing")[0].options || []}
+            value={finishingFilter}
+            onChange={(value) => setFinishingFilter(value as SelectOption | null)}
+            placeholder="Pilih Sentuhan Akhir"
           />
-        </InputGroup>
-        <InputGroup label="Desain">
-          <Select
-            options={designOptions}
-            value={designFilter}
-            onChange={(value) => setDesignFilter(value as SelectOption | null)}
-            placeholder="Pilih Desain"
+          </InputGroup>
+          <InputGroup label="Warna">
+            <Select
+              options={getProductFilterOptionsResult.data.data.filter(val=>val.type==="color")[0].options || []}
+              value={colorFilter}
+              onChange={(value) => setColorFilter(value as SelectOption | null)}
+              placeholder="Pilih Warna"
+            />
+          </InputGroup>
+          <InputGroup label="Ukuran">
+            <Select
+            options={getProductFilterOptionsResult.data.data.filter(val=>val.type==="size")[0].options || []}
+            value={sizeFilter}
+            onChange={(value) => setSizeFilter(value as SelectOption | null)}
+            placeholder="Pilih Ukuran"
           />
-        </InputGroup>
-        <InputGroup label="Tekstur">
-          <Select
-          options={textureOptions}
-          value={textureFilter}
-          onChange={(value) => setTextureFilter(value as SelectOption | null)}
-          placeholder="Pilih Tekstur"
-          />
-        </InputGroup>
-        <InputGroup label="Sentuhan Akhir">
-          <Select
-          options={finishingOptions}
-          value={finishingFilter}
-          onChange={(value) => setFinishingFilter(value as SelectOption | null)}
-          placeholder="Pilih Sentuhan Akhir"
-        />
-        </InputGroup>
-        <InputGroup label="Warna">
-          <Select
-            options={colorOptions}
-            value={colorFilter}
-            onChange={(value) => setColorFilter(value as SelectOption | null)}
-            placeholder="Pilih Warna"
-          />
-        </InputGroup>
-        <InputGroup label="Ukuran">
-          <Select
-          options={sizeOptions}
-          value={sizeFilter}
-          onChange={(value) => setSizeFilter(value as SelectOption | null)}
-          placeholder="Pilih Ukuran"
-        />
-        </InputGroup>
-      </div>
+          </InputGroup>
+        </div>
+      }
 
       <div>
-        <p className="text-sm text-gray-500">Showing 12 of 12 products</p>
+        {getProductsResult.data && 
+          <p className="text-sm text-gray-500">Showing {getProductsResult.data.data.length} of {getProductsResult.data.page.total} products</p>
+        }
       </div>
 
       <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
