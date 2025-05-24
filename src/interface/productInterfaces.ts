@@ -3,20 +3,26 @@ import type { Pagination } from "./paginationInterfaces"
 export interface Product{
   _id?: string,
   name: string,
-  type: string,
-  design: string,
-  size: {
-    width: number,
-    height: number
-  },
-  color: string,
-  finishing: string,
-  texture: string,
+  description?: string,
+  specification:{
+    size: {
+      width: number,
+      height: number
+    },
+    application: string[],
+    design: string,
+    color: string[],
+    finishing: string,
+    texture: string,
+    isWaterResistant:boolean,
+    isSlipResistant:boolean,
+  }
   brand: string,
   price: number,
-  image?: string | null,
-  createdAt: string,
-  updatedAt: string
+  image?: string,
+  recommended?: string[],
+  createdAt: Date,
+  updatedAt: Date
 }
 
 export interface ProductFilterOptions{

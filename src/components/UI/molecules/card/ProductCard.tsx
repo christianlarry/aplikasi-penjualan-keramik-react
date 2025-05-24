@@ -28,7 +28,7 @@ const ProductCard = ({
       </div>
       <div className="flex flex-1 flex-col p-4">
         <h3 className="font-medium">{product.name}</h3>
-        <div className="mt-1 text-sm text-muted-foreground">Size: {product.size.width} x {product.size.height} cm</div>
+        <div className="mt-1 text-sm text-muted-foreground">Ukuran: {product.specification.size.width} x {product.specification.size.height} cm</div>
         <div className="mt-auto pt-4 flex items-center justify-between flex-wrap">
           <div className="font-medium">Rp{formatRupiah(product.price)}</div>
           <Button variant="outline" size="sm" onClick={() => setIsDetailPopupOpen(!isDetailPopupOpen)}>
