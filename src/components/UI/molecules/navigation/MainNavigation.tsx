@@ -5,10 +5,12 @@ import { MAIN_NAVIGATION } from "../../../../constants/navigation"
 const MainNavigation = () => {
   return (
     <nav>
-      <ul className="flex gap-5">
+      <ul className="flex">
         {MAIN_NAVIGATION.map((val)=>(
           <li key={val.name}>
-            <Link to={val.path}>{val.name}</Link>
+            <Link to={val.path} className="block py-2 px-2 hover:underline">
+              {val.name}
+            </Link>
           </li>
         ))}
       </ul>

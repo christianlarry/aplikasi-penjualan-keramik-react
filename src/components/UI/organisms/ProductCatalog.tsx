@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import {  useEffect, useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input-group/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
@@ -47,6 +47,10 @@ const ProductCatalog = () => {
   const getProductsResult = getProducts(productQuery,{revalidateOnFocus: false})
   const getProductFilterOptionsResult = getProductFilterOptions()
 
+  useEffect(()=>{
+    console.log(productQuery)
+  },[getProductsResult])
+
   // Event handler
   // const handleSelectSizeChange = (value:SelectOption|SelectOption[]|null) => {
   //   if (!value) {
@@ -73,6 +77,7 @@ const ProductCatalog = () => {
     <div className="flex flex-col gap-4">
 
       {getProductFilterOptionsResult.data &&
+      <div>
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
           <InputGroup label="Pengaplikasian">
             <Select
@@ -129,6 +134,7 @@ const ProductCatalog = () => {
             />
           </InputGroup>
         </div>
+      </div>
       }
 
       <div>

@@ -5,8 +5,8 @@ const HomePage = () => {
     <div className="flex flex-col gap-12 mt-12">
       <section>
         <div className="flex flex-col items-center gap-3">
-          <h2 className="text-4xl font-semibold">Ceramic Tile Collection</h2>
-          <p className="text-gray-500">Discover our premium selection of ceramic and porcelain tiles</p>
+          <h2 className="text-4xl font-semibold text-center">Katalog Ubin Keramik</h2>
+          <p className="text-gray-500 text-center">Jelajahi pilihan ubin keramik terbaik kami untuk menghadirkan sentuhan elegan dan kualitas tinggi ke setiap sudut ruangan Anda.</p>
         </div>
       </section>
 
