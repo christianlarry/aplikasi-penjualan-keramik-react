@@ -66,7 +66,7 @@ const ProductDetail = ({
                 <h4 className="text-sm font-medium text-gray-500">Rekomendasi Untuk</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                   {product.recommended.map(recommended=>(
-                    <li>{recommended}</li>
+                    <li key={recommended}>{recommended}</li>
                   ))}
                 </ul>
               </div>

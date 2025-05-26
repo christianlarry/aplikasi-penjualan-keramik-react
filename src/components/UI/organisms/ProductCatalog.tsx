@@ -5,11 +5,15 @@ import ProductCard from "../molecules/card/ProductCard"
 import Pagination from "../molecules/pagination/Pagination"
 import { getProductFilterOptions, getProducts } from "../../../api/api"
 import { httpQuery } from "../../../utils/httpQuery"
+import { useLocation, useNavigate } from "react-router"
 
 const ProductCatalog = () => {
 
   // Pagination states
   const [paginationPage, setPaginationPage] = useState<number>(1)
+
+  // Search states
+  const [searchKeyword,setSearchKeyword] = useState<string>()
 
   // Filter states
   const [designFilter, setDesignFilter] = useState<SelectOption[] | null>(null)
@@ -42,36 +46,63 @@ const ProductCatalog = () => {
       ...(finishingFilter ? filterArrToQuery("finishing", finishingFilter): []),
       ...(colorFilter ? filterArrToQuery("color", colorFilter): []),
       ...(sizeFilter ? filterArrToQuery("size", sizeFilter): []),
+      searchKeyword ? {key:"search",value: searchKeyword}:undefined
     )
 
   const getProductsResult = getProducts(productQuery,{revalidateOnFocus: false})
   const getProductFilterOptionsResult = getProductFilterOptions()
 
+  // Location
+  const location = useLocation()
+  const navigate = useNavigate()
+
   useEffect(()=>{
-    console.log(productQuery)
-  },[getProductsResult])
 
-  // Event handler
-  // const handleSelectSizeChange = (value:SelectOption|SelectOption[]|null) => {
-  //   if (!value) {
-  //     setSizeHeightFilter(null)
-  //     setSizeWidthFilter(null)
-  //     return
-  //   }
+    const searchParams = new URLSearchParams(location.search)
 
-  //   const selected = value as SelectOption[]
+    // Check Filter Field in Search Params, set state setelah itu
+    setFilterState(searchParams,setApplicationFilter,"application")
+    setFilterState(searchParams,setDesignFilter,"design")
+    setFilterState(searchParams,setFinishingFilter,"finishing")
+    setFilterState(searchParams,setTextureFilter,"texture")
+    setFilterState(searchParams,setColorFilter,"color")
+    setFilterState(searchParams,setSizeFilter,"size")
 
-  //   const selectedSizeArr = selected.value.split("x")
+    // Check search query
+    if(searchParams.has("search")){
+      setSearchKeyword(searchParams.get("search") || undefined)
+    }
 
-  //   setSizeWidthFilter({
-  //     label: selectedSizeArr[0],
-  //     value: selectedSizeArr[0]
-  //   })
-  //   setSizeHeightFilter({
-  //     label: selectedSizeArr[1],
-  //     value: selectedSizeArr[1]
-  //   })
-  // }
+  },[location])
+
+  const setFilterState = (searchParams:URLSearchParams,setter:React.Dispatch<React.SetStateAction<SelectOption[]|null>>,key:string)=>{
+    if(searchParams.has(key)){
+      const filterParams = searchParams.getAll(key)
+      
+      setter(filterParams.map(val=>({label:val,value:val})))
+    }else{
+      setter(null)
+    }
+  }
+
+  // Set Search Query for Filter Options
+  const setFilterSearchParams = (key:string,filterOptions:SelectOption[]|null)=>{
+    
+    const searchParams = new URLSearchParams(location.search)
+
+    searchParams.delete(key)
+
+    if(filterOptions && filterOptions.length > 0){
+      filterOptions.forEach(val=>{
+        searchParams.append(key,val.value)
+      })
+    }else{  
+      searchParams.delete(key)
+    }
+
+    navigate("/product-catalog?"+searchParams.toString())
+  }
+
 
   return (
     <div className="flex flex-col gap-4">
@@ -84,7 +115,7 @@ const ProductCatalog = () => {
               multiple
               options={getProductFilterOptionsResult.data.data.filter(val => val.type === "application")[0].options || []}
               value={applicationFilter}
-              onChange={(value) => setApplicationFilter(value as SelectOption[] | null)}
+              onChange={(value) => setFilterSearchParams("application",value as SelectOption[] | null)}
               placeholder="Pilih Lantai/Dinding"
             />
           </InputGroup>
@@ -93,7 +124,7 @@ const ProductCatalog = () => {
               multiple
               options={getProductFilterOptionsResult.data.data.filter(val => val.type === "design")[0].options || []}
               value={designFilter}
-              onChange={(value) => setDesignFilter(value as SelectOption[] | null)}
+              onChange={(value) => setFilterSearchParams("design",value as SelectOption[] | null)}
               placeholder="Pilih Desain"
             />
           </InputGroup>
@@ -102,7 +133,7 @@ const ProductCatalog = () => {
               multiple
               options={getProductFilterOptionsResult.data.data.filter(val => val.type === "texture")[0].options || []}
               value={textureFilter}
-              onChange={(value) => setTextureFilter(value as SelectOption[] | null)}
+              onChange={(value) => setFilterSearchParams("texture",value as SelectOption[] | null)}
               placeholder="Pilih Tekstur"
             />
           </InputGroup>
@@ -111,7 +142,7 @@ const ProductCatalog = () => {
               multiple
               options={getProductFilterOptionsResult.data.data.filter(val => val.type === "finishing")[0].options || []}
               value={finishingFilter}
-              onChange={(value) => setFinishingFilter(value as SelectOption[] | null)}
+              onChange={(value) => setFilterSearchParams("finishing",value as SelectOption[] | null)}
               placeholder="Pilih Sentuhan Akhir"
             />
           </InputGroup>
@@ -120,7 +151,7 @@ const ProductCatalog = () => {
               multiple
               options={getProductFilterOptionsResult.data.data.filter(val => val.type === "color")[0].options || []}
               value={colorFilter}
-              onChange={(value) => setColorFilter(value as SelectOption[] | null)}
+              onChange={(value) => setFilterSearchParams("color",value as SelectOption[] | null)}
               placeholder="Pilih Warna"
             />
           </InputGroup>
@@ -129,7 +160,7 @@ const ProductCatalog = () => {
               multiple
               options={getProductFilterOptionsResult.data.data.filter(val => val.type === "size")[0].options || []}
               value={sizeFilter}
-              onChange={(value)=>setSizeFilter(value as SelectOption[] | null)}
+              onChange={(value)=>setFilterSearchParams("size",value as SelectOption[] | null)}
               placeholder="Pilih Ukuran"
             />
           </InputGroup>

@@ -1,11 +1,47 @@
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Logo from "../../atoms/logo/Logo";
 import MainNavigation from "../../molecules/navigation/MainNavigation";
 import Input from "../../atoms/input/Input";
 import { LuMapPin, LuUser } from "react-icons/lu";
 import Button from "../../atoms/button/Button";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+
+  // State
+  const [searchValue,setSearchValue] = useState<string>()
+
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleSearchKeydown:React.KeyboardEventHandler<HTMLInputElement> = (e)=>{
+    if(e.key === "Enter" && e.currentTarget.value !== ""){
+      const searchParams = new URLSearchParams()
+
+      searchParams.append("search",e.currentTarget.value)
+
+      navigate("/product-catalog?"+searchParams.toString())
+    }
+  }
+
+  const handleSearchChange:React.ChangeEventHandler<HTMLInputElement> = (e)=>{
+    const keyword = e.currentTarget.value
+
+    setSearchValue(keyword)
+
+    if(keyword.length === 0){
+      navigate("/product-catalog")
+    }
+  }
+
+  useEffect(()=>{
+    const searchParams = new URLSearchParams(location.search)
+
+    if(searchParams.has("search")){
+      setSearchValue(searchParams.get("search") || undefined)
+    }
+  },[location])
+
   return (
     <header>
       <div className="max-w-7xl mx-auto px-5">
@@ -17,7 +53,7 @@ const Header = () => {
           </div>
 
           <div className="w-6/12">
-            <Input type="search" placeholder="Cari ubin..."/>
+            <Input type="search" placeholder="Cari ubin..." onKeyDown={handleSearchKeydown} onChange={handleSearchChange} value={searchValue}/>
           </div>
 
           <div>
