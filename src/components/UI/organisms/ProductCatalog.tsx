@@ -7,6 +7,39 @@ import { getProductFilterOptions, getProducts } from "../../../api/api"
 import { httpQuery } from "../../../utils/httpQuery"
 import { useLocation, useNavigate } from "react-router"
 
+const filterOptionsConfig = [
+  {
+    label: "Pengaplikasian",
+    key: "application",
+    placeholder: "Pilih Lantai/Dinding"
+  },
+  {
+    label: "Desain",
+    key: "design",
+    placeholder: "Pilih desain"
+  },
+  {
+    label: "Tekstur",
+    key: "texture",
+    placeholder: "Pilih tekstur"
+  },
+  {
+    label: "Sentuhan Akhir",
+    key: "finishing",
+    placeholder: "Pilih sentuhan akhir"
+  },
+  {
+    label: "Warna",
+    key: "color",
+    placeholder: "Pilih warna"
+  },
+  {
+    label: "Ukuran",
+    key: "size",
+    placeholder: "Pilih ukuran"
+  },
+]
+
 const ProductCatalog = () => {
 
   // Pagination states
@@ -16,12 +49,14 @@ const ProductCatalog = () => {
   const [searchKeyword,setSearchKeyword] = useState<string>()
 
   // Filter states
-  const [designFilter, setDesignFilter] = useState<SelectOption[] | null>(null)
-  const [applicationFilter, setApplicationFilter] = useState<SelectOption[] | null>(null)
-  const [textureFilter, setTextureFilter] = useState<SelectOption[] | null>(null)
-  const [finishingFilter, setFinishingFilter] = useState<SelectOption[] | null>(null)
-  const [colorFilter, setColorFilter] = useState<SelectOption[] | null>(null)
-  const [sizeFilter, setSizeFilter] = useState<SelectOption[] | null>(null)
+  const [filters,setFilters] = useState<Record<string, SelectOption[]|null>>({
+    design: null,
+    application: null,
+    texture: null,
+    finishing: null,
+    color: null,
+    size: null
+  })
 
   const filterArrToQuery = (key:string, filter:SelectOption[])=>{
     return filter.map(val=>({
@@ -40,12 +75,12 @@ const ProductCatalog = () => {
         key: "pagination_page",
         value: paginationPage
       },
-      ...(designFilter ? filterArrToQuery("design", designFilter): []),
-      ...(applicationFilter ? filterArrToQuery("application", applicationFilter): []),
-      ...(textureFilter ? filterArrToQuery("texture", textureFilter): []),
-      ...(finishingFilter ? filterArrToQuery("finishing", finishingFilter): []),
-      ...(colorFilter ? filterArrToQuery("color", colorFilter): []),
-      ...(sizeFilter ? filterArrToQuery("size", sizeFilter): []),
+      ...(filters.design ? filterArrToQuery("design", filters.design): []),
+      ...(filters.application ? filterArrToQuery("application", filters.application): []),
+      ...(filters.texture ? filterArrToQuery("texture", filters.texture): []),
+      ...(filters.finishing ? filterArrToQuery("finishing", filters.finishing): []),
+      ...(filters.color ? filterArrToQuery("color", filters.color): []),
+      ...(filters.size ? filterArrToQuery("size", filters.size): []),
       searchKeyword ? {key:"search",value: searchKeyword}:undefined
     )
 
@@ -61,27 +96,32 @@ const ProductCatalog = () => {
     const searchParams = new URLSearchParams(location.search)
 
     // Check Filter Field in Search Params, set state setelah itu
-    setFilterState(searchParams,setApplicationFilter,"application")
-    setFilterState(searchParams,setDesignFilter,"design")
-    setFilterState(searchParams,setFinishingFilter,"finishing")
-    setFilterState(searchParams,setTextureFilter,"texture")
-    setFilterState(searchParams,setColorFilter,"color")
-    setFilterState(searchParams,setSizeFilter,"size")
+    const filterKeys = ["application","design","finishing","texture","color","size"]
+
+    filterKeys.forEach(key=>{
+      if(searchParams.has(key)){
+        const filterParams = searchParams.getAll(key)
+        
+        setFilters(prev=>{
+          return {
+            ...prev,
+            [key]: filterParams.map(val=>({label:val,value:val}))
+          }
+        })
+      }else{
+        setFilters(prev=>{
+          return {
+            ...prev,
+            [key]: null
+          }
+        })
+      }
+    })
 
     // Check search query
     setSearchKeyword(searchParams.get("search") || undefined)
 
   },[location])
-
-  const setFilterState = (searchParams:URLSearchParams,setter:React.Dispatch<React.SetStateAction<SelectOption[]|null>>,key:string)=>{
-    if(searchParams.has(key)){
-      const filterParams = searchParams.getAll(key)
-      
-      setter(filterParams.map(val=>({label:val,value:val})))
-    }else{
-      setter(null)
-    }
-  }
 
   // Set Search Query for Filter Options
   const setFilterSearchParams = (key:string,filterOptions:SelectOption[]|null)=>{
@@ -108,60 +148,17 @@ const ProductCatalog = () => {
       {getProductFilterOptionsResult.data &&
       <div>
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-          <InputGroup label="Pengaplikasian">
-            <Select
-              multiple
-              options={getProductFilterOptionsResult.data.data.filter(val => val.type === "application")[0].options || []}
-              value={applicationFilter}
-              onChange={(value) => setFilterSearchParams("application",value as SelectOption[] | null)}
-              placeholder="Pilih Lantai/Dinding"
-            />
-          </InputGroup>
-          <InputGroup label="Desain">
-            <Select
-              multiple
-              options={getProductFilterOptionsResult.data.data.filter(val => val.type === "design")[0].options || []}
-              value={designFilter}
-              onChange={(value) => setFilterSearchParams("design",value as SelectOption[] | null)}
-              placeholder="Pilih Desain"
-            />
-          </InputGroup>
-          <InputGroup label="Tekstur">
-            <Select
-              multiple
-              options={getProductFilterOptionsResult.data.data.filter(val => val.type === "texture")[0].options || []}
-              value={textureFilter}
-              onChange={(value) => setFilterSearchParams("texture",value as SelectOption[] | null)}
-              placeholder="Pilih Tekstur"
-            />
-          </InputGroup>
-          <InputGroup label="Sentuhan Akhir">
-            <Select
-              multiple
-              options={getProductFilterOptionsResult.data.data.filter(val => val.type === "finishing")[0].options || []}
-              value={finishingFilter}
-              onChange={(value) => setFilterSearchParams("finishing",value as SelectOption[] | null)}
-              placeholder="Pilih Sentuhan Akhir"
-            />
-          </InputGroup>
-          <InputGroup label="Warna">
-            <Select
-              multiple
-              options={getProductFilterOptionsResult.data.data.filter(val => val.type === "color")[0].options || []}
-              value={colorFilter}
-              onChange={(value) => setFilterSearchParams("color",value as SelectOption[] | null)}
-              placeholder="Pilih Warna"
-            />
-          </InputGroup>
-          <InputGroup label="Ukuran">
-            <Select
-              multiple
-              options={getProductFilterOptionsResult.data.data.filter(val => val.type === "size")[0].options || []}
-              value={sizeFilter}
-              onChange={(value)=>setFilterSearchParams("size",value as SelectOption[] | null)}
-              placeholder="Pilih Ukuran"
-            />
-          </InputGroup>
+          {filterOptionsConfig.map(config=>(
+            <InputGroup label={config.label}>
+              <Select
+                multiple
+                options={getProductFilterOptionsResult.data?.data.filter(val => val.type === config.key)[0].options || []}
+                value={filters[config.key]}
+                onChange={(value) => setFilterSearchParams(config.key,value as SelectOption[] | null)}
+                placeholder={config.placeholder}
+              />
+            </InputGroup>
+          ))}
         </div>
       </div>
       }
