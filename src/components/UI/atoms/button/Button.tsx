@@ -37,7 +37,9 @@ const Button = ({
         variant === "pagination" && 
           "p-0! w-8 h-8 font-semibold! bg-transparent border border-gray-300 hover:bg-gray-100 flex items-center justify-center",
         variant === "pagination" && active===true && 
-          "text-white! bg-black! border-0!"
+          "text-white! bg-black! border-0!",
+        variant === "text" && active===true && 
+          "underline"
       )}
       {...props}
     >

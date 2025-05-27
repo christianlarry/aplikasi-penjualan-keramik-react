@@ -6,6 +6,7 @@ import Pagination from "../molecules/pagination/Pagination"
 import { getProductFilterOptions, getProducts } from "../../../api/api"
 import { httpQuery } from "../../../utils/httpQuery"
 import { useLocation, useNavigate } from "react-router"
+import Button from "../atoms/button/Button"
 
 const filterOptionsConfig = [
   {
@@ -40,6 +41,21 @@ const filterOptionsConfig = [
   },
 ]
 
+const sortProductOptions:SelectOption[] = [
+  {
+    label: "Harga dari Besar ke Kecil",
+    value: "price_htl"
+  },
+  {
+    label: "Harga dari Kecil ke Besar",
+    value: "price_lth"
+  },
+  {
+    label: "Nama dari A ke Z",
+    value: "name_atz"
+  }
+]
+
 const ProductCatalog = () => {
 
   // Pagination states
@@ -57,6 +73,9 @@ const ProductCatalog = () => {
     color: null,
     size: null
   })
+
+  // Sort States
+  const [sortBy,setSortBy] = useState<string>()
 
   const filterArrToQuery = (key:string, filter:SelectOption[])=>{
     return filter.map(val=>({
@@ -81,10 +100,13 @@ const ProductCatalog = () => {
       ...(filters.finishing ? filterArrToQuery("finishing", filters.finishing): []),
       ...(filters.color ? filterArrToQuery("color", filters.color): []),
       ...(filters.size ? filterArrToQuery("size", filters.size): []),
-      searchKeyword ? {key:"search",value: searchKeyword}:undefined
+      searchKeyword ? {key:"search",value: searchKeyword}:undefined,
+      sortBy ? {key:"orderBy",value:sortBy}:undefined
     )
-
+    
+    // GET Products
   const getProductsResult = getProducts(productQuery,{revalidateOnFocus: false})
+    // GET Product Filter Options
   const getProductFilterOptionsResult = getProductFilterOptions()
 
   // Location
@@ -121,8 +143,13 @@ const ProductCatalog = () => {
     // Check search query
     setSearchKeyword(searchParams.get("search") || undefined)
 
+    // Check sortby query
+    setSortBy(searchParams.get("sortBy") || undefined)
+
   },[location])
 
+  // Handler
+  
   // Set Search Query for Filter Options
   const setFilterSearchParams = (key:string,filterOptions:SelectOption[]|null)=>{
     
@@ -137,6 +164,15 @@ const ProductCatalog = () => {
     }else{  
       searchParams.delete(key)
     }
+
+    navigate("/product-catalog?"+searchParams.toString())
+  }
+
+  const setSortBySearchParams = (sortValue:string)=>{
+    const searchParams = new URLSearchParams(location.search)
+
+    searchParams.delete("sortBy")
+    searchParams.append("sortBy",sortValue)
 
     navigate("/product-catalog?"+searchParams.toString())
   }
@@ -162,6 +198,24 @@ const ProductCatalog = () => {
         </div>
       </div>
       }
+
+      <div className="flex gap-1">
+        <p className="text-sm font-semibold">Urutkan Berdasarkan : </p>
+        <div className="flex gap-2">
+          {sortProductOptions.map((sortOption,i,arr)=>(
+            <>
+              <Button 
+                variant="text" 
+                active={sortBy === sortOption.value}
+                onClick={()=>setSortBySearchParams(sortOption.value)}
+              >
+                {sortOption.label}
+              </Button>
+              {i != arr.length-1 && <span className="text-sm">|</span>}
+            </>
+          ))}
+        </div>
+      </div>
 
       <div>
         {getProductsResult.data &&
