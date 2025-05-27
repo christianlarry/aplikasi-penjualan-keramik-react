@@ -1,6 +1,6 @@
 import { Outlet } from "react-router"
-import Header from "../UI/organisms/header/Header"
-import Footer from "../UI/organisms/footer/Footer"
+import Header from "../UI/organisms/Header"
+import Footer from "../UI/organisms/Footer"
 
 const MainLayout = ()=>{
   return (

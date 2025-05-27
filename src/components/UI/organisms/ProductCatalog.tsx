@@ -69,9 +69,7 @@ const ProductCatalog = () => {
     setFilterState(searchParams,setSizeFilter,"size")
 
     // Check search query
-    if(searchParams.has("search")){
-      setSearchKeyword(searchParams.get("search") || undefined)
-    }
+    setSearchKeyword(searchParams.get("search") || undefined)
 
   },[location])
 
