@@ -18,7 +18,7 @@ const SearchProductInput = ()=>{
 
       searchParams.append("search",e.currentTarget.value)
 
-      navigate("/product-catalog?"+searchParams.toString())
+      navigate("/catalog/all-products?"+searchParams.toString())
     }
   }
 
@@ -27,12 +27,13 @@ const SearchProductInput = ()=>{
 
     setSearchValue(keyword)
 
-    if(keyword.length === 0 && location.pathname === "/product-catalog"){
+    // ! TO BE FIXXXXXXXX FUCEKKKKK
+    if(keyword.length === 0 && location.pathname === "/catalog/"){
 
       const searchParams = new URLSearchParams(location.search)
       searchParams.delete("search")
 
-      navigate("/product-catalog?"+searchParams.toString())
+      navigate("/catalog/all-products?"+searchParams.toString())
     }
   }
 

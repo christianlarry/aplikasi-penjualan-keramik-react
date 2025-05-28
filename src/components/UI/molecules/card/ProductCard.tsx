@@ -1,7 +1,7 @@
 import type { Product } from "../../../../interface/productInterfaces"
 import Button from "../../atoms/button/Button"
 
-import ProductPlaceholderImg from "../../../../assets/images/placeholders/product-placeholder.png"
+import ProductPlaceholderImg from "../../../../assets/images/placeholders/placeholder.svg"
 import { formatRupiah } from "../../../../utils/currencyFormat"
 import ProductDetail from "../popup/ProductDetail"
 import { useState } from "react"

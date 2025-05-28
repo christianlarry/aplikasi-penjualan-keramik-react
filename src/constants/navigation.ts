@@ -10,6 +10,6 @@ export const MAIN_NAVIGATION:NavigationItem[] = [
   },
   {
     name: "Katalog",
-    path: "/product-catalog"
+    path: "/catalog"
   }
 ]

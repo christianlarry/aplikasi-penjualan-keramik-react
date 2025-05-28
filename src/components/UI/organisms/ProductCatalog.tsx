@@ -1,4 +1,4 @@
-import {  Fragment, useEffect, useState } from "react"
+import {  Fragment, useEffect, useRef, useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input-group/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
@@ -76,6 +76,9 @@ const ProductCatalog = () => {
 
   // Sort States
   const [sortBy,setSortBy] = useState<string>()
+
+  // Ref
+  const productCatalogRef = useRef<HTMLDivElement>(null)
 
   const filterArrToQuery = (key:string, filter:SelectOption[])=>{
     return filter.map(val=>({
@@ -165,7 +168,7 @@ const ProductCatalog = () => {
       searchParams.delete(key)
     }
 
-    navigate("/product-catalog?"+searchParams.toString())
+    navigate([location.pathname,searchParams.toString()].join("?"))
   }
 
   const setSortBySearchParams = (sortValue:string|undefined)=>{
@@ -177,12 +180,20 @@ const ProductCatalog = () => {
       searchParams.append("sortBy",sortValue)
     }
 
-    navigate("/product-catalog?"+searchParams.toString())
+    navigate([location.pathname,searchParams.toString()].join("?"))
+  }
+
+  const resetSearch = ()=>{
+    const searchParams = new URLSearchParams(location.search)
+
+    searchParams.delete("search")
+
+    navigate([location.pathname,searchParams.toString()].join("?"))
   }
 
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" ref={productCatalogRef}>
 
       {getProductFilterOptionsResult.data &&
       <div>
@@ -232,8 +243,15 @@ const ProductCatalog = () => {
       </div>
 
       {searchKeyword &&
-      <div>
+      <div className="flex gap-2 items-center">
         <p className="font-semibold text-xl">Hasil pencarian untuk: <span className="font-medium">{searchKeyword}</span></p>
+        <Button
+            variant="text"
+            onClick={()=>resetSearch()}
+            className="text-red-500 p-1 block"
+          >
+            Reset Pencarian
+        </Button>
       </div>
       }
 

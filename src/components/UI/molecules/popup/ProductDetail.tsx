@@ -1,7 +1,7 @@
 import type { Product } from "../../../../interface/productInterfaces"
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "../../atoms/modal/Modal"
 
-import ProductPlaceholderImg from "../../../../assets/images/placeholders/product-placeholder.png"
+import ProductPlaceholderImg from "../../../../assets/images/placeholders/placeholder.svg"
 import { formatRupiah } from "../../../../utils/currencyFormat"
 import Button from "../../atoms/button/Button"
 import { getProductImgUrl } from "../../../../utils/getProductImgUrl"
