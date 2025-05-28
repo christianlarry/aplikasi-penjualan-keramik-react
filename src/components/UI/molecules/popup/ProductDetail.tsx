@@ -48,7 +48,7 @@ const ProductDetail = ({
             <div>
               <h4 className="text-sm font-medium text-gray-500">Spesifikasi</h4>
               <ul className="mt-2 space-y-1 text-sm">
-                <li>Tipe: {product.specification.application.join(", ")}</li>
+                <li>Pengaplikasian: {product.specification.application.join(", ")}</li>
                 <li>Desain: {product.specification.design}</li>
                 <li>Tekstur: {product.specification.texture}</li>
                 <li>Sentuhan Akhir: {product.specification.finishing}</li>

@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react"
+import {  Fragment, useEffect, useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input-group/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
@@ -168,11 +168,14 @@ const ProductCatalog = () => {
     navigate("/product-catalog?"+searchParams.toString())
   }
 
-  const setSortBySearchParams = (sortValue:string)=>{
+  const setSortBySearchParams = (sortValue:string|undefined)=>{
     const searchParams = new URLSearchParams(location.search)
 
     searchParams.delete("sortBy")
-    searchParams.append("sortBy",sortValue)
+
+    if(sortValue != undefined){
+      searchParams.append("sortBy",sortValue)
+    }
 
     navigate("/product-catalog?"+searchParams.toString())
   }
@@ -185,7 +188,7 @@ const ProductCatalog = () => {
       <div>
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
           {filterOptionsConfig.map(config=>(
-            <InputGroup label={config.label}>
+            <InputGroup label={config.label} key={config.key}>
               <Select
                 multiple
                 options={getProductFilterOptionsResult.data?.data.filter(val => val.type === config.key)[0].options || []}
@@ -199,11 +202,11 @@ const ProductCatalog = () => {
       </div>
       }
 
-      <div className="flex gap-1">
+      <div className="flex gap-1 flex-wrap">
         <p className="text-sm font-semibold">Urutkan Berdasarkan : </p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {sortProductOptions.map((sortOption,i,arr)=>(
-            <>
+            <Fragment key={i}>
               <Button 
                 variant="text" 
                 active={sortBy === sortOption.value}
@@ -212,10 +215,27 @@ const ProductCatalog = () => {
                 {sortOption.label}
               </Button>
               {i != arr.length-1 && <span className="text-sm">|</span>}
-            </>
+            </Fragment>
           ))}
+
         </div>
+
+        {sortBy && 
+          <Button
+            variant="text"
+            onClick={()=>setSortBySearchParams(undefined)}
+            className="text-red-500 p-1 block"
+          >
+            Reset Sort
+          </Button>
+        }
       </div>
+
+      {searchKeyword &&
+      <div>
+        <p className="font-semibold text-xl">Hasil pencarian untuk: <span className="font-medium">{searchKeyword}</span></p>
+      </div>
+      }
 
       <div>
         {getProductsResult.data &&
