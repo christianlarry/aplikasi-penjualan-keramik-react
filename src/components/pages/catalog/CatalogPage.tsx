@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import ProductCatalog from "../../UI/organisms/ProductCatalog";
 import Button from "../../UI/atoms/button/Button";
-import { LuChevronRight } from "react-icons/lu";
+import Breadcrumbs, { type BreadcrumbsItem } from "../../UI/molecules/navigation/Breadcrumbs";
 
 const otherProductCatalogLinks = [
   {
@@ -15,6 +15,21 @@ const otherProductCatalogLinks = [
   {
     url: "/catalog/best-seller",
     label: "Produk Terlaris"
+  }
+]
+
+const breadcrumbsItems:BreadcrumbsItem[] = [
+  {
+    label: "Beranda",
+    url: "/"
+  },
+  {
+    label: "Katalog",
+    url: "/catalog"
+  },
+  {
+    label: "Semua Produk",
+    url: "/catalog/all-products"
   }
 ]
 
@@ -58,29 +73,7 @@ const CatalogPage = ()=>{
 
           {/* Ini adalah Breadcrumbs */}
           <div className="my-8">
-            <nav>
-              <ul className="flex items-center gap-1 flex-wrap">
-                <li>
-                  <Link to={"/"}>
-                    <Button variant="text" className="block text-base!">Beranda</Button>
-                  </Link>
-                </li>
-                <li>
-                  <span className="text-base"><LuChevronRight/></span>
-                </li>
-                <li>
-                  <Link to={"/"}>
-                    <Button variant="text" className="block text-base!">Katalog</Button>
-                  </Link>
-                </li>
-                <li>
-                  <span className="text-base"><LuChevronRight/></span>
-                </li>
-                <li>
-                  <Button variant="text" className="block text-base! font-semibold pointer-events-none">Semua Produk</Button>
-                </li>
-              </ul>
-            </nav>
+            <Breadcrumbs items={breadcrumbsItems}/>
           </div>
         </div>
       </section>
