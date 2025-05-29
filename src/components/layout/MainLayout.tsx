@@ -10,11 +10,9 @@ const MainLayout = ()=>{
 
         <Header/>
         
-        <main>
-          <div className="max-w-7xl mx-auto px-5">
-            <Outlet/>
-          </div>
-        </main>
+        <div className="max-w-7xl mx-auto">
+          <Outlet/>
+        </div>
 
       </div>
 

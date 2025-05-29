@@ -9,8 +9,9 @@ const Header = () => {
 
   return (
     <header>
-      <div className="max-w-7xl mx-auto px-5">
-        <div className="flex justify-between items-center border-b py-5  border-gray-200 gap-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center border-b py-5 px-5 border-gray-200 gap-10">
+
           <div className="flex-1">
             <Link to=".">
               <Logo />
@@ -38,9 +39,9 @@ const Header = () => {
             </ul>
           </div>
           
-        </div>
+        </div> 
 
-        <div className="border-b border-gray-200">
+        <div className="border-b border-gray-200 px-5">
           <MainNavigation />
         </div>
       </div>

@@ -44,7 +44,7 @@ const CatalogHero = ({
             alt={title + " | Image"}
             className="block h-full w-full object-cover object-center transition-transform hover:scale-105 duration-800" />
         </div>
-        <div className="bg-stone-700 text-white p-5 lg:p-15">
+        <div className="bg-stone-700 text-white px-5 py-10 lg:p-15">
           <div className="flex flex-col gap-3">
             <h1 className="text-3xl md:text-4xl font-normal md:font-light">{title}</h1>
             <p className="font-light md:font-medium">{description}</p>
@@ -53,7 +53,7 @@ const CatalogHero = ({
       </div>
 
       {heroOtherLinksItem &&
-        <div className="flex-1 bg-stone-200 text-black p-5 lg:p-15 flex flex-col gap-3">
+        <div className="flex-1 bg-stone-100 text-black p-5 lg:p-15 flex flex-col gap-3">
           <h2 className="text-2xl underline">Katalog Lainnya</h2>
           <nav>
             <ul className="flex flex-row gap-3 lg:flex-col lg:gap-0 flex-wrap">
