@@ -33,7 +33,7 @@ const Button = ({
         variant ==="contained" ? 
           "hover:bg-gray-300" : 
         variant === "text" ? 
-          "bg-transparent hover:underline p-0!" : 
+          "bg-transparent hover:underline p-0! text-start" : 
         variant === "pagination" && 
           "p-0! w-8 h-8 font-semibold! bg-transparent border border-gray-300 hover:bg-gray-100 flex items-center justify-center",
         variant === "pagination" && active===true && 

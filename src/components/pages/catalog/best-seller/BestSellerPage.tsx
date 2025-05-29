@@ -1,7 +1,6 @@
-import type { BreadcrumbsItem } from "../../../UI/molecules/navigation/Breadcrumbs";
-import Breadcrumbs from "../../../UI/molecules/navigation/Breadcrumbs";
-import CatalogHero from "../../../UI/organisms/CatalogHero";
-import ProductCatalog from "../../../UI/organisms/ProductCatalog";
+import Breadcrumbs, { type BreadcrumbsItem } from "../../../UI/molecules/navigation/Breadcrumbs"
+import CatalogHero from "../../../UI/organisms/CatalogHero"
+import ProductCatalog from "../../../UI/organisms/ProductCatalog"
 
 const breadcrumbsItems: BreadcrumbsItem[] = [
   {
@@ -13,20 +12,20 @@ const breadcrumbsItems: BreadcrumbsItem[] = [
     url: "/catalog"
   },
   {
-    label: "Semua Produk",
-    url: "/catalog/all-products"
+    label: "Produk Terlaris",
+    url: "/catalog/best-seller"
   }
 ]
 
-const AllProductsPage = () => {
+const BestSellerPage = () => {
   return (
     <div className="flex flex-col gap-8 mt-1">
       <section>
         <div>
           {/* Ini adalah Banner/Hero */}
           <CatalogHero
-            title="Katalog | Semua Produk"
-            description="Jelajahi pilihan ubin keramik terbaik kami untuk menghadirkan sentuhan elegan dan kualitas tinggi ke setiap sudut ruangan Anda."
+            title="Produk Terlaris"
+            description="Temukan produk-produk keramik favorit pelanggan kami yang paling laris. Kualitas teruji dan desain menawan untuk berbagai gaya interior."
             imageSrc="https://images.unsplash.com/photo-1708540084677-dc5838b37627?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
 
@@ -41,7 +40,7 @@ const AllProductsPage = () => {
         <ProductCatalog />
       </section>
     </div>
-  );
+  )
 }
 
-export default AllProductsPage
+export default BestSellerPage
