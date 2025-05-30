@@ -1,6 +1,7 @@
 
 import Main from "../../UI/molecules/container/Main";
 import Breadcrumbs, { type BreadcrumbsItem } from "../../UI/molecules/navigation/Breadcrumbs";
+import Hero from "../../UI/organisms/Hero";
 
 const breadcrumbsItems: BreadcrumbsItem[] = [
   {
@@ -16,7 +17,22 @@ const breadcrumbsItems: BreadcrumbsItem[] = [
 const CatalogPage = () => {
   return (
     <>
-      <div className="px-5 mt-4 mb-8">
+      <Hero
+        title="CV. Aneka Keramik"
+        description="Temukan berbagai pilihan ubin keramik berkualitas tinggi untuk mempercantik rumah dan bangunan Anda. CV Aneka Keramik siap memenuhi kebutuhan interior dan eksterior Anda."
+        links={[
+          {
+            label: "Lihat Katalog",
+            url: "/catalog"  
+          },
+          {
+            label: "Kunjungi Toko",
+            url: "/catalog"
+          }
+        ]}
+      />
+      
+      <div className="px-5">
         <Breadcrumbs items={breadcrumbsItems} />
       </div>
 

@@ -10,7 +10,7 @@ const MainLayout = ()=>{
 
         <Header/>
         
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto flex flex-col gap-8">
           <Outlet/>
         </div>
 
