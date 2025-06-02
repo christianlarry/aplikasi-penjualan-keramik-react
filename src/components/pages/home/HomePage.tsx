@@ -2,9 +2,9 @@ import pagesConfig from "../../../constants/pages.config";
 import Main from "../../UI/molecules/container/Main";
 import Hero from "../../UI/organisms/Hero";
 import CatalogCategoryCard from "../../UI/molecules/card/CatalogCategoryCard";
-import PrimaryButton from "../../UI/atoms/button/PrimaryButton";
-import { Link } from "react-router";
 import ShowcaseBanner from "../../UI/molecules/banner/ShowcaseBanner";
+import { Link } from "react-router";
+import RoomCategoryCard from "../../UI/molecules/card/RoomCategoryCard";
 
 const HomePage = () => {
   return (
@@ -26,6 +26,22 @@ const HomePage = () => {
               url: "/tile-calculator"
             }}
           />
+        </section>
+
+        <section>
+          <div className="flex flex-col items-center gap-4">
+            <div>
+              <h2 className="text-2xl text-center">Produk Berdasarkan Tempat</h2>
+            </div>
+
+            <div className="gap-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              <RoomCategoryCard
+                name="Kitchen"
+                imgSrc="https://s7d1.scene7.com/is/image/TileShop/683320_render_kitchen_close_up_vertical:1x1?fmt=webp"
+                url="/catalog/"
+              />
+            </div>
+          </div>
         </section>
 
         <section>

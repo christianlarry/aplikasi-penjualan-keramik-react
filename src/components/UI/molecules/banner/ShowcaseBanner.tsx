@@ -31,7 +31,7 @@ const ShowcaseBanner = ({
         }
       </div>
       <div className="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1722348673535-c8f00bc0fc45?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Banner Img" className="w-full h-full object-cover object-center" />
+        <img src="https://images.unsplash.com/photo-1722348673535-c8f00bc0fc45?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt={title} className="w-full h-full object-cover object-center" />
       </div>
     </div>
   )
