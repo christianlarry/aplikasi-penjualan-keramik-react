@@ -7,7 +7,7 @@ interface Props{
   imgSrc:string
 }
 
-const buttonText:string = "Lihat Katalog"
+const buttonText:string = "Buka Katalog"
 
 const CatalogCategoryCard = ({
   imgSrc,

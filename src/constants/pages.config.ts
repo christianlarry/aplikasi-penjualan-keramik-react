@@ -3,7 +3,7 @@ const pagesConfig = {
     heroTitle: "CV. Aneka Keramik",
     heroDescription: "Temukan berbagai pilihan ubin keramik berkualitas tinggi untuk mempercantik rumah dan bangunan Anda. CV Aneka Keramik siap memenuhi kebutuhan interior dan eksterior Anda.",
     heroLinks: [
-      { label: "Lihat Katalog", url: "/catalog" },
+      { label: "Menu Katalog", url: "/catalog" },
       { label: "Kunjungi Toko", url: "/catalog" }
     ],
     catalogCategoryCards: [
