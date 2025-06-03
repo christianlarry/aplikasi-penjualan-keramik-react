@@ -4,6 +4,7 @@ import MainNavigation from "../molecules/navigation/MainNavigation";
 import { LuMapPin, LuUser } from "react-icons/lu";
 import Button from "../atoms/button/Button";
 import SearchProductInput from "../molecules/SearchProductInput";
+import bisnisStrings from "../../../constants/bisnis.strings";
 
 const Header = () => {
 
@@ -13,9 +14,11 @@ const Header = () => {
         <div className="flex justify-between items-center border-b py-5 px-5 border-gray-200 gap-10">
 
           <div className="flex-1">
-            <Link to=".">
-              <Logo />
-            </Link>
+            <div className="w-[120px]">
+              <Link to=".">
+                <Logo />
+              </Link>
+            </div>
           </div>
 
           <div className="w-full flex-1 sm:flex-1 md:flex-2 lg:flex-3">
@@ -28,7 +31,9 @@ const Header = () => {
                 <i>
                   <LuMapPin/>
                 </i>
-                <Button variant="text">Temukan toko</Button>
+                <Link to={bisnisStrings.location.gMapsLink} target="_blank">
+                  <Button variant="text">Temukan toko</Button>
+                </Link>
               </li>
               <li className="flex items-center gap-1 cursor-pointer">
                 <i>

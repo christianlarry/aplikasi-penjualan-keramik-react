@@ -3,7 +3,6 @@ import Main from "../../UI/molecules/container/Main";
 import Hero from "../../UI/organisms/Hero";
 import CatalogCategoryCard from "../../UI/molecules/card/CatalogCategoryCard";
 import ShowcaseBanner from "../../UI/molecules/banner/ShowcaseBanner";
-import { Link } from "react-router";
 import RoomCategoryCard from "../../UI/molecules/card/RoomCategoryCard";
 
 const HomePage = () => {
@@ -19,29 +18,13 @@ const HomePage = () => {
 
         <section>
           <ShowcaseBanner
-            title="Kalkulasi Jumlah Ubin"
-            description="Butuh bantuan hitung jumlah ubin? Gunakan alat kalkulasi otomatis kami untuk dapatkan estimasi cepat dan akurat sesuai ukuran ruanganmu!"
+            title={pagesConfig.homePage.showcaseTileCalculator.title}
+            description={pagesConfig.homePage.showcaseTileCalculator.description}
             link={{
-              label: "Coba Sekarang",
-              url: "/tile-calculator"
+              label: pagesConfig.homePage.showcaseTileCalculator.linkLabel,
+              url: pagesConfig.homePage.showcaseTileCalculator.linkUrl
             }}
           />
-        </section>
-
-        <section>
-          <div className="flex flex-col items-center gap-4">
-            <div>
-              <h2 className="text-2xl text-center">Produk Berdasarkan Tempat</h2>
-            </div>
-
-            <div className="gap-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              <RoomCategoryCard
-                name="Kitchen"
-                imgSrc="https://s7d1.scene7.com/is/image/TileShop/683320_render_kitchen_close_up_vertical:1x1?fmt=webp"
-                url="/catalog/"
-              />
-            </div>
-          </div>
         </section>
 
         <section>
@@ -57,6 +40,28 @@ const HomePage = () => {
 
           </div>
         </section>
+
+        <section>
+          <div className="flex flex-col items-center gap-12">
+            <div>
+              <h2 className="text-2xl text-center">Produk Berdasarkan Tempat</h2>
+            </div>
+
+            <div className="gap-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+
+              {pagesConfig.homePage.catalogRoomCategoryCards.map(item=>(
+                <RoomCategoryCard
+                  key={item.title}
+                  name={item.title}
+                  imgSrc={item.imgSrc}
+                  url={item.url}
+                />
+              ))}
+
+            </div>
+          </div>
+        </section>
+
       </Main>
     </>
   );

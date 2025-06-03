@@ -14,7 +14,7 @@ const RoomCategoryCard = ({
   return (
     <Link to={url}>
       <div className="flex flex-col items-center gap-2">
-        <div className="overflow-hidden rounded-2xl">
+        <div className="overflow-hidden rounded-2xl aspect-square bg-stone-500">
           <img src={imgSrc} alt={name} className="block w-full object-center object-cover hover:scale-105 transition-transform duration-500" />
         </div>
         <p>{name}</p>

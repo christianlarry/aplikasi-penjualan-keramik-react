@@ -1,13 +1,9 @@
 // import logo
 import LogoUsaha from "../../../../assets/images/logo.png"
 
-interface Props{
-  width?:number
-}
-
-const Logo = ({width=120}:Props)=>{
+const Logo = ()=>{
   return (
-  <img src={LogoUsaha} alt="Logo" className="block" width={width}/>
+  <img src={LogoUsaha} alt="Logo" className="block w-full"/>
 )}
 
 export default Logo

@@ -19,7 +19,7 @@ const ShowcaseBanner = ({
     <div className="relative overflow-hidden rounded-2xl">
       <div className="flex items-center justify-between gap-4 flex-wrap relative z-10 text-white px-8 sm:px-16 md:px-28 py-16 md:py-24 backdrop-brightness-80 backdrop-blur-xs">
         <div className="flex flex-col gap-4 max-w-2xl">
-          <h2 className="text-2xl md:text-4xl text-white font-semibold uppercase">{title}</h2>
+          <h2 className="text-2xl md:text-4xl text-white font-normal md:font-semibold uppercase">{title}</h2>
           <p className="text-base font-medium md:text-xl md:font-light">{description}</p>
         </div>
         {link && 
