@@ -1,11 +1,24 @@
 import { Outlet, useLocation } from "react-router"
 import Header from "../UI/organisms/Header"
 import Footer from "../UI/organisms/Footer"
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const MainLayout = ()=>{
 
   const location = useLocation()
+
+  // STATE
+  const [headerHeight,setHeaderHeight] = useState<number>(0)
+
+  // REF
+  const headerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(()=>{
+    if(headerRef.current){
+      const headerEl = headerRef.current
+      setHeaderHeight(headerEl.offsetHeight)
+    }
+  },[])
 
   useEffect(()=>{
     window.scrollTo({
@@ -19,9 +32,9 @@ const MainLayout = ()=>{
       
       <div className="flex-1">
 
-        <Header/>
+        <Header ref={headerRef}/>
         
-        <div className="max-w-7xl mx-auto flex flex-col gap-8">
+        <div className="max-w-7xl mx-auto flex flex-col gap-8" style={{marginTop: headerHeight}}>
           <Outlet/>
         </div>
 

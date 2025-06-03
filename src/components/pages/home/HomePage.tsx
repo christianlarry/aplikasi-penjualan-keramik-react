@@ -32,6 +32,7 @@ const HomePage = () => {
 
             {pagesConfig.homePage.catalogCategoryCards.map(item=>(
               <CatalogCategoryCard
+                key={item.title}
                 title={item.title}
                 url={item.url}
                 imgSrc={item.imgSrc}
