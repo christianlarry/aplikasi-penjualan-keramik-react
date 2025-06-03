@@ -1,4 +1,4 @@
-import {  Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import { Select, type SelectOption } from "../atoms/input/Select"
 import InputGroup from "../molecules/input-group/InputGroup"
 import ProductCard from "../molecules/card/ProductCard"
@@ -7,6 +7,7 @@ import { getProductFilterOptions, getProducts } from "../../../api/api"
 import { httpQuery } from "../../../utils/httpQuery"
 import { useLocation, useNavigate } from "react-router"
 import Button from "../atoms/button/Button"
+import ProductCardSkeleton from "../molecules/skeleton/ProductCardSkeleton"
 
 const filterOptionsConfig = [
   {
@@ -41,7 +42,7 @@ const filterOptionsConfig = [
   },
 ]
 
-const sortProductOptions:SelectOption[] = [
+const sortProductOptions: SelectOption[] = [
   {
     label: "Harga dari Besar ke Kecil",
     value: "price_htl"
@@ -62,10 +63,10 @@ const ProductCatalog = () => {
   const [paginationPage, setPaginationPage] = useState<number>(1)
 
   // Search states
-  const [searchKeyword,setSearchKeyword] = useState<string>()
+  const [searchKeyword, setSearchKeyword] = useState<string>()
 
   // Filter states
-  const [filters,setFilters] = useState<Record<string, SelectOption[]|null>>({
+  const [filters, setFilters] = useState<Record<string, SelectOption[] | null>>({
     design: null,
     application: null,
     texture: null,
@@ -75,13 +76,13 @@ const ProductCatalog = () => {
   })
 
   // Sort States
-  const [sortBy,setSortBy] = useState<string>()
+  const [sortBy, setSortBy] = useState<string>()
 
   // Ref
   const productCatalogRef = useRef<HTMLDivElement>(null)
 
-  const filterArrToQuery = (key:string, filter:SelectOption[])=>{
-    return filter.map(val=>({
+  const filterArrToQuery = (key: string, filter: SelectOption[]) => {
+    return filter.map(val => ({
       key: key,
       value: val.value
     }))
@@ -89,52 +90,52 @@ const ProductCatalog = () => {
 
   // API call
   const productQuery = httpQuery(
-      {
-        key: "pagination_size",
-        value: 12
-      },
-      {
-        key: "pagination_page",
-        value: paginationPage
-      },
-      ...(filters.design ? filterArrToQuery("design", filters.design): []),
-      ...(filters.application ? filterArrToQuery("application", filters.application): []),
-      ...(filters.texture ? filterArrToQuery("texture", filters.texture): []),
-      ...(filters.finishing ? filterArrToQuery("finishing", filters.finishing): []),
-      ...(filters.color ? filterArrToQuery("color", filters.color): []),
-      ...(filters.size ? filterArrToQuery("size", filters.size): []),
-      searchKeyword ? {key:"search",value: searchKeyword}:undefined,
-      sortBy ? {key:"orderBy",value:sortBy}:undefined
-    )
-    
-    // GET Products
-  const getProductsResult = getProducts(productQuery,{revalidateOnFocus: false})
-    // GET Product Filter Options
+    {
+      key: "pagination_size",
+      value: 12
+    },
+    {
+      key: "pagination_page",
+      value: paginationPage
+    },
+    ...(filters.design ? filterArrToQuery("design", filters.design) : []),
+    ...(filters.application ? filterArrToQuery("application", filters.application) : []),
+    ...(filters.texture ? filterArrToQuery("texture", filters.texture) : []),
+    ...(filters.finishing ? filterArrToQuery("finishing", filters.finishing) : []),
+    ...(filters.color ? filterArrToQuery("color", filters.color) : []),
+    ...(filters.size ? filterArrToQuery("size", filters.size) : []),
+    searchKeyword ? { key: "search", value: searchKeyword } : undefined,
+    sortBy ? { key: "orderBy", value: sortBy } : undefined
+  )
+
+  // GET Products
+  const getProductsResult = getProducts(productQuery, { revalidateOnFocus: false })
+  // GET Product Filter Options
   const getProductFilterOptionsResult = getProductFilterOptions()
 
   // Location
   const location = useLocation()
   const navigate = useNavigate()
 
-  useEffect(()=>{
+  useEffect(() => {
 
     const searchParams = new URLSearchParams(location.search)
 
     // Check Filter Field in Search Params, set state setelah itu
-    const filterKeys = ["application","design","finishing","texture","color","size"]
+    const filterKeys = ["application", "design", "finishing", "texture", "color", "size"]
 
-    filterKeys.forEach(key=>{
-      if(searchParams.has(key)){
+    filterKeys.forEach(key => {
+      if (searchParams.has(key)) {
         const filterParams = searchParams.getAll(key)
-        
-        setFilters(prev=>{
+
+        setFilters(prev => {
           return {
             ...prev,
-            [key]: filterParams.map(val=>({label:val,value:val}))
+            [key]: filterParams.map(val => ({ label: val, value: val }))
           }
         })
-      }else{
-        setFilters(prev=>{
+      } else {
+        setFilters(prev => {
           return {
             ...prev,
             [key]: null
@@ -149,46 +150,46 @@ const ProductCatalog = () => {
     // Check sortby query
     setSortBy(searchParams.get("sortBy") || undefined)
 
-  },[location])
+  }, [location])
 
   // Handler
-  
+
   // Set Search Query for Filter Options
-  const setFilterSearchParams = (key:string,filterOptions:SelectOption[]|null)=>{
-    
+  const setFilterSearchParams = (key: string, filterOptions: SelectOption[] | null) => {
+
     const searchParams = new URLSearchParams(location.search)
 
     searchParams.delete(key)
 
-    if(filterOptions && filterOptions.length > 0){
-      filterOptions.forEach(val=>{
-        searchParams.append(key,val.value)
+    if (filterOptions && filterOptions.length > 0) {
+      filterOptions.forEach(val => {
+        searchParams.append(key, val.value)
       })
-    }else{  
+    } else {
       searchParams.delete(key)
     }
 
-    navigate([location.pathname,searchParams.toString()].join("?"))
+    navigate([location.pathname, searchParams.toString()].join("?"))
   }
 
-  const setSortBySearchParams = (sortValue:string|undefined)=>{
+  const setSortBySearchParams = (sortValue: string | undefined) => {
     const searchParams = new URLSearchParams(location.search)
 
     searchParams.delete("sortBy")
 
-    if(sortValue != undefined){
-      searchParams.append("sortBy",sortValue)
+    if (sortValue != undefined) {
+      searchParams.append("sortBy", sortValue)
     }
 
-    navigate([location.pathname,searchParams.toString()].join("?"))
+    navigate([location.pathname, searchParams.toString()].join("?"))
   }
 
-  const resetSearch = ()=>{
+  const resetSearch = () => {
     const searchParams = new URLSearchParams(location.search)
 
     searchParams.delete("search")
 
-    navigate([location.pathname,searchParams.toString()].join("?"))
+    navigate([location.pathname, searchParams.toString()].join("?"))
   }
 
 
@@ -196,45 +197,45 @@ const ProductCatalog = () => {
     <div className="flex flex-col gap-4" ref={productCatalogRef}>
 
       {getProductFilterOptionsResult.data &&
-      <div>
-        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {filterOptionsConfig.map(config=>(
-            <InputGroup label={config.label} key={config.key}>
-              <Select
-                multiple
-                options={getProductFilterOptionsResult.data?.data.filter(val => val.type === config.key)[0].options || []}
-                value={filters[config.key]}
-                onChange={(value) => setFilterSearchParams(config.key,value as SelectOption[] | null)}
-                placeholder={config.placeholder}
-              />
-            </InputGroup>
-          ))}
+        <div>
+          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {filterOptionsConfig.map(config => (
+              <InputGroup label={config.label} key={config.key}>
+                <Select
+                  multiple
+                  options={getProductFilterOptionsResult.data?.data.filter(val => val.type === config.key)[0].options || []}
+                  value={filters[config.key]}
+                  onChange={(value) => setFilterSearchParams(config.key, value as SelectOption[] | null)}
+                  placeholder={config.placeholder}
+                />
+              </InputGroup>
+            ))}
+          </div>
         </div>
-      </div>
       }
 
       <div className="flex gap-1 flex-wrap">
         <p className="text-sm font-semibold">Urutkan Berdasarkan : </p>
         <div className="flex gap-2 flex-wrap">
-          {sortProductOptions.map((sortOption,i,arr)=>(
+          {sortProductOptions.map((sortOption, i, arr) => (
             <Fragment key={i}>
-              <Button 
-                variant="text" 
+              <Button
+                variant="text"
                 active={sortBy === sortOption.value}
-                onClick={()=>setSortBySearchParams(sortOption.value)}
+                onClick={() => setSortBySearchParams(sortOption.value)}
               >
                 {sortOption.label}
               </Button>
-              {i != arr.length-1 && <span className="text-sm">|</span>}
+              {i != arr.length - 1 && <span className="text-sm">|</span>}
             </Fragment>
           ))}
 
         </div>
 
-        {sortBy && 
+        {sortBy &&
           <Button
             variant="text"
-            onClick={()=>setSortBySearchParams(undefined)}
+            onClick={() => setSortBySearchParams(undefined)}
             className="text-red-500 p-1 block"
           >
             Reset Sort
@@ -243,25 +244,36 @@ const ProductCatalog = () => {
       </div>
 
       {searchKeyword &&
-      <div className="flex gap-2 items-center">
-        <p className="font-semibold text-xl">Hasil pencarian untuk: <span className="font-medium">{searchKeyword}</span></p>
-        <Button
+        <div className="flex gap-2 items-center">
+          <p className="font-semibold text-xl">Hasil pencarian untuk: <span className="font-medium">{searchKeyword}</span></p>
+          <Button
             variant="text"
-            onClick={()=>resetSearch()}
+            onClick={() => resetSearch()}
             className="text-red-500 p-1 block"
           >
             Reset Pencarian
-        </Button>
-      </div>
+          </Button>
+        </div>
       }
 
       <div>
         {getProductsResult.data &&
           <p className="text-sm text-gray-500">Menampilkan {getProductsResult.data.data.length} dari {getProductsResult.data.page.total} produk</p>
         }
+        {!getProductsResult.data &&
+          <p className="text-sm text-gray-500">Menampilkan - dari - produk</p>
+        }
       </div>
 
+
+
+
       <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        {getProductsResult.isLoading && Array(8).fill(0).map((_, i) => (
+          <ProductCardSkeleton key={i} />
+        ))
+        }
+
         {getProductsResult.data && getProductsResult.data.data.map((product) => (
           <ProductCard
             key={product._id}
