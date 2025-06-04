@@ -4,12 +4,14 @@ import PrimaryButton from "../atoms/button/PrimaryButton"
 interface Props{
   title:string,
   description:string,
+  imgSrc:string,
   links?:{label:string,url:string}[]
 }
 
 const Hero = ({
   description,
   title,
+  imgSrc,
   links
 }:Props)=>{
   return (
@@ -34,7 +36,7 @@ const Hero = ({
       <div className="absolute inset-0 w-full h-full z-10 backdrop-blur-xs transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
 
       <div className="absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-800">
-        <img src="https://images.unsplash.com/photo-1708540084677-dc5838b37627?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hero Background" className="block w-full h-full object-center object-cover"/>
+        <img src={imgSrc} alt="Hero Background" className="block w-full h-full object-center object-cover"/>
       </div>
     </div>
   )

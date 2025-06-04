@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons"
-import { LuGrid2X2, LuHouse, LuPercent, LuShoppingCart, LuSparkles, LuStar } from "react-icons/lu"
+import { LuCalculator, LuGrid2X2, LuHouse, LuPercent, LuShoppingCart, LuSparkles, LuStar } from "react-icons/lu"
 
 export interface NavigationItem {
   name: string,
@@ -45,5 +45,10 @@ export const MAIN_NAVIGATION: NavigationItem[] = [
         Icon: LuPercent
       }
     ]
+  },
+  {
+    name: "Kalkulator Ubin",
+    path: "/tile-calculator",
+    Icon: LuCalculator
   }
 ]

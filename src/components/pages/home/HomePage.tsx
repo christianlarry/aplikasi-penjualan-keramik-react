@@ -4,11 +4,14 @@ import Hero from "../../UI/organisms/Hero";
 import CatalogCategoryCard from "../../UI/molecules/card/CatalogCategoryCard";
 import ShowcaseBanner from "../../UI/molecules/banner/ShowcaseBanner";
 import RoomCategoryCard from "../../UI/molecules/card/RoomCategoryCard";
+import CatalogCategorySection from "../../UI/organisms/CatalogCategorySection";
+import CatalogRoomCategorySection from "../../UI/organisms/CatalogRoomCategorySection";
 
 const HomePage = () => {
   return (
     <>
       <Hero
+        imgSrc="https://images.unsplash.com/photo-1708540084677-dc5838b37627?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         title={pagesConfig.homePage.heroTitle}
         description={pagesConfig.homePage.heroDescription}
         links={pagesConfig.homePage.heroLinks}
@@ -28,39 +31,11 @@ const HomePage = () => {
         </section>
 
         <section>
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-
-            {pagesConfig.homePage.catalogCategoryCards.map(item=>(
-              <CatalogCategoryCard
-                key={item.title}
-                title={item.title}
-                url={item.url}
-                imgSrc={item.imgSrc}
-              />
-            ))}
-
-          </div>
+          <CatalogCategorySection/>
         </section>
 
         <section>
-          <div className="flex flex-col items-center gap-12">
-            <div>
-              <h2 className="text-2xl text-center">Produk Berdasarkan Tempat</h2>
-            </div>
-
-            <div className="gap-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-
-              {pagesConfig.homePage.catalogRoomCategoryCards.map(item=>(
-                <RoomCategoryCard
-                  key={item.title}
-                  name={item.title}
-                  imgSrc={item.imgSrc}
-                  url={item.url}
-                />
-              ))}
-
-            </div>
-          </div>
+          <CatalogRoomCategorySection/>
         </section>
 
       </Main>
