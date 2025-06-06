@@ -2,11 +2,14 @@ import { LuSearch } from "react-icons/lu"
 import { cn } from "../../../../utils/classNames"
 import { useRef } from "react"
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement>{}
+interface Props extends React.InputHTMLAttributes<HTMLInputElement>{
+  onSearch:(value:string)=>void
+}
 
 const Input = ({
   className,
   type,
+  onSearch,
   ...props
 }:Props)=>{
 
@@ -15,7 +18,7 @@ const Input = ({
   // handler
   const handleSearchBtnClick = ()=>{
     if(inputRef.current){
-      inputRef.current.focus()
+      onSearch(inputRef.current.value)
     }
   }
 

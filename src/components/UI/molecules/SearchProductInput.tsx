@@ -10,19 +10,25 @@ const SearchProductInput = ()=>{
   const navigate = useNavigate()
   const location = useLocation()
 
-  const handleSearchKeydown:React.KeyboardEventHandler<HTMLInputElement> = (e)=>{
-    if(e.key === "Enter" && e.currentTarget.value !== ""){
+  const searchHandler = (keyword:string)=>{
+    if(keyword !== ""){
       const searchParams = new URLSearchParams(location.search)
-
+  
       searchParams.delete("search")
 
-      searchParams.append("search",e.currentTarget.value)
+      searchParams.append("search",keyword)
 
       if(location.pathname.includes("/catalog/")){
         navigate([location.pathname,searchParams.toString()].join("?"))
       }else{
         navigate("/catalog/all-products?"+searchParams.toString())
       }
+    }
+  }
+
+  const handleSearchKeydown:React.KeyboardEventHandler<HTMLInputElement> = (e)=>{
+    if(e.key === "Enter"){
+      searchHandler(e.currentTarget.value)
     }
   }
 
@@ -49,7 +55,14 @@ const SearchProductInput = ()=>{
   },[location])
 
   return (
-    <Input type="search" placeholder="Cari ubin..." onKeyDown={handleSearchKeydown} onChange={handleSearchChange} value={searchValue}/>
+    <Input 
+      type="search" 
+      placeholder="Cari ubin..." 
+      onKeyDown={handleSearchKeydown} 
+      onChange={handleSearchChange}
+      onSearch={(val)=>searchHandler(val)}
+      value={searchValue}
+    />
   )
 }
 
