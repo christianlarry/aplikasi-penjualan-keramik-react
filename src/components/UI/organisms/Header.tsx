@@ -7,11 +7,22 @@ import SearchProductInput from "../molecules/SearchProductInput";
 import bisnisStrings from "../../../constants/bisnis.strings";
 import { forwardRef, useState } from "react";
 import Sidebar from "./Sidebar";
+import globalStrings from "../../../constants/global.strings";
 
 const Header = forwardRef<HTMLDivElement>((_, ref) => {
 
   const [isSearchBoxOpen, setIsSearchBoxOpen] = useState<boolean>(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
+
+  const handleBurgerBtnClick = ()=>{
+    setIsSidebarOpen(!isSidebarOpen)
+  }
+
+  const handleSearchBtnClick = ()=>{
+    setIsSidebarOpen(false)
+
+    setIsSearchBoxOpen(true)
+  }
 
   return (
     <header>
@@ -21,11 +32,11 @@ const Header = forwardRef<HTMLDivElement>((_, ref) => {
 
             <div className="block md:hidden">
               <div className="flex flex-wrap gap-1 text-xl">
-                <button className="p-1 cursor-pointer hover:scale-110" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                <button className="p-1 cursor-pointer hover:scale-110" onClick={handleBurgerBtnClick}>
                   {isSidebarOpen && <LuX />}
                   {!isSidebarOpen && <LuMenu />}
                 </button>
-                <button className="p-1 cursor-pointer hover:scale-110" onClick={() => setIsSearchBoxOpen(true)}>
+                <button className="p-1 cursor-pointer hover:scale-110" onClick={handleSearchBtnClick}>
                   <LuSearch />
                 </button>
               </div>
@@ -73,7 +84,9 @@ const Header = forwardRef<HTMLDivElement>((_, ref) => {
                     <i>
                       <LuUser />
                     </i>
-                    <Button variant="text">Sign In</Button>
+                    <Link to={globalStrings.signUpLink}>
+                      <Button variant="text">Sign In</Button>
+                    </Link>
                   </li>
                 </ul>
               </div>
