@@ -1,11 +1,11 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import Logo from "../atoms/logo/Logo";
 import MainNavigation from "../molecules/navigation/MainNavigation";
 import { LuMapPin, LuMenu, LuSearch, LuUser, LuX } from "react-icons/lu";
 import Button from "../atoms/button/Button";
 import SearchProductInput from "../molecules/SearchProductInput";
 import bisnisStrings from "../../../constants/bisnis.strings";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import globalStrings from "../../../constants/global.strings";
 
@@ -23,6 +23,12 @@ const Header = forwardRef<HTMLDivElement>((_, ref) => {
 
     setIsSearchBoxOpen(true)
   }
+
+  const location = useLocation()
+
+  useEffect(()=>{
+    setIsSidebarOpen(false)
+  },[location.pathname])
 
   return (
     <header>
