@@ -57,7 +57,13 @@ const sortProductOptions: SelectOption[] = [
   }
 ]
 
-const ProductCatalog = () => {
+interface Props{
+  categoryType?: "all"|"bestSeller"|"newArrivals"|"discount"
+}
+
+const ProductCatalog = ({
+  categoryType="all"
+}:Props) => {
 
   // Pagination states
   const [paginationPage, setPaginationPage] = useState<number>(1)
@@ -98,6 +104,9 @@ const ProductCatalog = () => {
       key: "pagination_page",
       value: paginationPage
     },
+    categoryType === "bestSeller" && {key: "bestSeller",value: "true"},
+    categoryType === "newArrivals" && {key: "newArrivals",value: "true"},
+    categoryType === "discount" && {key: "discounted",value: "true"},
     ...(filters.design ? filterArrToQuery("design", filters.design) : []),
     ...(filters.application ? filterArrToQuery("application", filters.application) : []),
     ...(filters.texture ? filterArrToQuery("texture", filters.texture) : []),

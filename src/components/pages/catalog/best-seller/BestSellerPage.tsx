@@ -33,7 +33,7 @@ const BestSellerPage = () => {
 
       <Main>
         <section>
-          <ProductCatalog />
+          <ProductCatalog categoryType="bestSeller"/>
         </section>
       </Main>
     </>

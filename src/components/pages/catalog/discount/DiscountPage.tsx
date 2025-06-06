@@ -34,7 +34,7 @@ const DiscountPage = () => {
 
       <Main>
         <section>
-          <ProductCatalog />
+          <ProductCatalog categoryType="discount"/>
         </section>
       </Main>
     </>

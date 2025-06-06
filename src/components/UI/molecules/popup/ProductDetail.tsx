@@ -39,7 +39,15 @@ const ProductDetail = ({
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">Harga</h4>
+              {product.discount &&
+              <div className="flex flex-col">
+                <p className="text-md font-medium line-through">Rp{formatRupiah(product.price)}</p>
+                <p className="text-xl font-medium">Rp{formatRupiah(product.finalPrice)} <span className="text-red-500">({product.discount}%) off</span></p>
+              </div>
+              }
+              {!product.discount &&
               <p className="text-xl font-medium">Rp{formatRupiah(product.price)}</p>
+              }
             </div>                            
             <div>
               <h4 className="text-sm font-medium text-gray-500">Merk</h4>

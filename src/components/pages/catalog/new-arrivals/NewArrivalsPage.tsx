@@ -34,7 +34,7 @@ const NewArrivalsPage = () => {
 
       <Main>
         <section>
-          <ProductCatalog />
+          <ProductCatalog categoryType="newArrivals"/>
         </section>
       </Main>
     </>

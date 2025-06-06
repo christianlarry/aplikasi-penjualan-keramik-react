@@ -46,7 +46,7 @@ const Header = forwardRef<HTMLDivElement>((_,ref) => {
             </div>
             
           </div> 
-
+    
           <div className="border-b border-gray-200 px-5">
             <MainNavigation />
           </div>

@@ -30,7 +30,15 @@ const ProductCard = ({
         <h3 className="font-medium">{product.name}</h3>
         <div className="mt-1 text-sm text-muted-foreground">Ukuran: {product.specification.size.width} x {product.specification.size.height} cm</div>
         <div className="mt-auto pt-4 flex items-center justify-between flex-wrap">
-          <div className="font-medium">Rp{formatRupiah(product.price)}</div>
+            {product.discount &&
+              <div className="flex flex-col">
+                <div className="text-sm line-through">Rp{formatRupiah(product.price)}</div>
+                <div className="font-medium">Rp{formatRupiah(product.finalPrice)} <span className="text-red-500 text-sm">({product.discount}%)</span></div>
+              </div>
+            }
+            {!product.discount &&
+            <div className="font-medium">Rp{formatRupiah(product.price)}</div>
+            }
           <Button variant="outline" size="sm" onClick={() => setIsDetailPopupOpen(!isDetailPopupOpen)}>
             Details
           </Button>

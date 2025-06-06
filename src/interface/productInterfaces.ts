@@ -19,6 +19,10 @@ export interface Product{
   }
   brand: string,
   price: number,
+  finalPrice: number,
+  discount?:number,
+  isBestSeller?:boolean,
+  isNewArrivals?:boolean,
   image?: string,
   recommended?: string[],
   createdAt: Date,
