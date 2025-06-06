@@ -6,6 +6,7 @@ import Button from "../atoms/button/Button";
 import SearchProductInput from "../molecules/SearchProductInput";
 import bisnisStrings from "../../../constants/bisnis.strings";
 import { forwardRef, useState } from "react";
+import Sidebar from "./Sidebar";
 
 const Header = forwardRef<HTMLDivElement>((_, ref) => {
 
@@ -28,7 +29,7 @@ const Header = forwardRef<HTMLDivElement>((_, ref) => {
                   <LuSearch />
                 </button>
               </div>
-
+              
               {isSearchBoxOpen &&
                 <div className="absolute inset-0 w-full h-full bg-white border-b border-gray-200">
                   <div className="h-full flex items-center px-5 gap-2">
@@ -42,9 +43,7 @@ const Header = forwardRef<HTMLDivElement>((_, ref) => {
                 </div>
               }
 
-              <div className="absolute left-0 top-full w-full bg-white">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum laboriosam fugit impedit ex? Autem aut aspernatur, saepe quia, optio doloremque obcaecati ea illum officia deserunt nihil accusantium assumenda provident ad?
-              </div>
+              <Sidebar isOpen={isSidebarOpen}/>
             </div>
 
             <div className="md:flex-1">

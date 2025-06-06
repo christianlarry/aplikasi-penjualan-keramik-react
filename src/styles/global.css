@@ -3,6 +3,7 @@
 
 @theme {
   --font-lato: "Lato",sans-serif;
+  --breakpoint-xs: 30rem;
 }
 
 body{
