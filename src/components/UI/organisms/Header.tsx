@@ -32,7 +32,7 @@ const Header = forwardRef<HTMLDivElement>((_, ref) => {
 
   return (
     <header>
-      <div ref={ref} className="fixed left-0 top-0 w-full z-50 bg-white">
+      <div ref={ref} className="fixed left-0 top-0 w-full z-50 bg-white shadow-sm">
         <div className="max-w-7xl mx-auto relative">
           <div className="flex justify-between items-center border-b py-5 px-5 border-gray-200 gap-10">
 
