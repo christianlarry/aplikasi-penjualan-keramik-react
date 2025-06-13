@@ -7,6 +7,10 @@ import AllProductsPage from "../components/pages/catalog/all-products/AllProduct
 import BestSellerPage from "../components/pages/catalog/best-seller/BestSellerPage"
 import NewArrivalsPage from "../components/pages/catalog/new-arrivals/NewArrivalsPage"
 import DiscountPage from "../components/pages/catalog/discount/DiscountPage"
+import TileCalculatorPage from "../components/pages/tile-calculator/TileCalculatorPage"
+
+// Import Error Page
+import NotFoundPage from "../components/pages/errors/NotFoundPage"
 
 // Import layout
 import MainLayout from "../components/layout/MainLayout"
@@ -22,7 +26,9 @@ const router = createBrowserRouter(
         { path: "catalog/all-products", Component: AllProductsPage },
         { path: "catalog/best-seller", Component: BestSellerPage },
         { path: "catalog/new-arrivals", Component: NewArrivalsPage },
-        { path: "catalog/discount", Component: DiscountPage }
+        { path: "catalog/discount", Component: DiscountPage },
+        { path: "tile-calculator", Component: TileCalculatorPage },
+        { path: "*", Component: NotFoundPage }
       ]
     }
   ]

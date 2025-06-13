@@ -1,9 +1,7 @@
 import pagesConfig from "../../../constants/pages.config";
 import Main from "../../UI/molecules/container/Main";
 import Hero from "../../UI/organisms/Hero";
-import CatalogCategoryCard from "../../UI/molecules/card/CatalogCategoryCard";
 import ShowcaseBanner from "../../UI/molecules/banner/ShowcaseBanner";
-import RoomCategoryCard from "../../UI/molecules/card/RoomCategoryCard";
 import CatalogCategorySection from "../../UI/organisms/CatalogCategorySection";
 import CatalogRoomCategorySection from "../../UI/organisms/CatalogRoomCategorySection";
 

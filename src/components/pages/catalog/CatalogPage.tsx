@@ -1,5 +1,3 @@
-
-import RoomCanvas from "../../UI/molecules/canvas/RoomCanvas";
 import Main from "../../UI/molecules/container/Main";
 import Breadcrumbs, { type BreadcrumbsItem } from "../../UI/molecules/navigation/Breadcrumbs";
 import CatalogCategorySection from "../../UI/organisms/CatalogCategorySection";
@@ -36,9 +34,6 @@ const CatalogPage = () => {
         </section>
         <section>
           <CatalogRoomCategorySection/>
-        </section>
-        <section>
-          <RoomCanvas tileWidth={30} tileHeight={30}/>
         </section>
       </Main>
     </>
