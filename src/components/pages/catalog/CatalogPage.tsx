@@ -16,6 +16,9 @@ const breadcrumbsItems: BreadcrumbsItem[] = [
 ]
 
 const CatalogPage = () => {
+
+  throw new Error("Test Error")
+
   return (
     <>
       <Hero

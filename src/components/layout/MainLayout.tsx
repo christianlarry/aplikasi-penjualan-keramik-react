@@ -3,6 +3,10 @@ import Header from "../UI/organisms/Header"
 import Footer from "../UI/organisms/Footer"
 import { useEffect } from "react"
 
+// Handle Error Page
+import { ErrorBoundary } from "react-error-boundary"
+import InternalErrorPage from "../pages/errors/InternalErrorPage"
+
 const MainLayout = ()=>{
 
   const location = useLocation()
@@ -15,21 +19,23 @@ const MainLayout = ()=>{
   },[location.pathname])
 
   return (
-    <div className="flex flex-col min-h-svh">
-      
-      <div className="flex-1">
-
-        <Header/>
+    <ErrorBoundary FallbackComponent={InternalErrorPage}>
+      <div className="flex flex-col min-h-svh">
         
-        <div className="max-w-7xl mx-auto flex flex-col gap-8 mt-[83px] md:mt-[124px]">
-          <Outlet/>
+        <div className="flex-1">
+
+          <Header/>
+          
+          <div className="max-w-7xl mx-auto flex flex-col gap-8 mt-[83px] md:mt-[124px]">
+            <Outlet/>
+          </div>
+
         </div>
 
+        <Footer/>
+        
       </div>
-
-      <Footer/>
-      
-    </div>
+    </ErrorBoundary>
   )
 }
 
